@@ -3,168 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJPS | Admin Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>DJPS Admin Panel | Notices Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: url('https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/School%20building.jpg') center/cover; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; position: relative; }
-        body::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,8,0.8), rgba(5,5,8,0.95)); backdrop-filter: blur(8px); z-index: -1; }
-        * { box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* BEAUTIFUL GLASS LOGIN */
-        #loginScreen { background: rgba(20, 25, 35, 0.6); padding: 50px 40px; border-radius: 20px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(15px); }
-        .input-box input { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; outline: none; font-family: 'Poppins'; color: #fff; }
-        .input-box input:focus { border-color: #D4AF37; }
-        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #e8c454, #b59223); color: #000; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .btn:hover { box-shadow: 0 10px 20px rgba(212,175,55,0.3); transform: translateY(-2px); }
-        
-        /* DASHBOARD */
-        #dashboardScreen { display: none; width: 100%; max-width: 800px; margin: auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 25, 35, 0.7); padding: 25px; border-radius: 15px; margin-bottom: 30px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px); flex-wrap: wrap; gap: 20px; }
-        .user-profile { display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 60px; height: 60px; background: linear-gradient(135deg, #D4AF37, #e8c454); color: #000; font-size: 2rem; font-family: 'Playfair Display'; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
-        
-        .panel { background: rgba(20, 25, 35, 0.7); padding: 30px; border-radius: 15px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-        .panel h3 { margin-top: 0; color: #D4AF37; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
-        .admin-input, .admin-textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; outline: none; font-family: 'Poppins'; color:#fff;}
-        .admin-textarea { height: 120px; resize: vertical; }
-        
-        .notice-list-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #D4AF37; }
-        
-        #statusMsg { position: fixed; top: 20px; right: 20px; padding: 15px 25px; background: #2ecc71; color: #000; font-weight: 600; border-radius: 10px; display: none; z-index: 9999; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #050508;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* LOGIN PAGE */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #050508 0%, #1a1625 100%);
+            padding: 20px;
+        }
+
+        .login-wrapper.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: rgba(20, 25, 35, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-box h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .login-box .subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #D4AF37;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #D4AF37 0%, #f0c94a 100%);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ADMIN PANEL */
+        .admin-wrapper {
+            display: none;
+            min-height: 100vh;
+            background: #050508;
+        }
+
+        .admin-wrapper.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-nav {
+            background: rgba(5, 5, 8, 0.95);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #D4AF37;
+        }
+
+        .admin-nav .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info span {
+            color: #ccc;
+            font-size: 13px;
+        }
+
+        .logout-btn {
+            padding: 8px 15px;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #ff6b6b;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .admin-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #D4AF37;
+            margin-bottom: 30px;
+        }
+
+        /* NOTICE FORM */
+        .notice-form {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.7), rgba(5, 8, 15, 0.5));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .notice-form h3 {
+            color: #D4AF37;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group-item label {
+            color: #D4AF37;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .form-group-item input,
+        .form-group-item textarea {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group-item input:focus,
+        .form-group-item textarea:focus {
+            outline: none;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group-item textarea {
+            grid-column: 1 / -1;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #D4AF37 0%, #f0c94a 100%);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* NOTICES LIST */
+        .notices-section h3 {
+            color: #D4AF37;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .notices-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notice-card {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.7), rgba(5, 8, 15, 0.5));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            animation: slideIn 0.3s ease;
+            transition: all 0.3s;
+        }
+
+        .notice-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            background: linear-gradient(145deg, rgba(30, 35, 50, 0.8), rgba(15, 18, 30, 0.6));
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notice-details h4 {
+            color: #D4AF37;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .notice-details p {
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .notice-date {
+            color: #999;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .notice-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .delete-btn {
+            padding: 8px 12px;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #ff6b6b;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            color: #D4AF37;
+            padding: 40px;
+        }
+
+        .loading i {
+            margin-right: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #D4AF37;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .success-msg {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-    <div id="statusMsg"><i class="fas fa-check-circle"></i> Action Successful!</div>
+<!-- LOGIN PAGE -->
+<div class="login-wrapper" id="loginWrapper">
+    <div class="login-box">
+        <h1>DJPS Admin</h1>
+        <p class="subtitle">NOTICES MANAGEMENT SYSTEM</p>
+        
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="success-msg" id="successMsg"></div>
 
-    <!-- ELEGANT LOGIN -->
-    <div id="loginScreen">
-        <h2 style="font-family: 'Playfair Display', serif; color: #D4AF37; font-size:2rem; margin-bottom:5px;">Admin Portal</h2>
-        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 30px;">Divya Jyoti Public School</p>
-        
-        <div class="input-box"><input type="text" id="phone" placeholder="Phone Number"></div>
-        <div class="input-box"><input type="password" id="pass" placeholder="Password"></div>
-        <p id="errorMsg" style="color: #ff4757; font-size: 0.85rem; display: none; margin-bottom: 15px;">Incorrect Credentials</p>
-        
-        <button class="btn" onclick="checkLogin()">Login Securely</button>
-        <a href="index.html" style="color: #D4AF37; text-decoration: none; font-size: 0.85rem; display: block; margin-top: 25px;">&larr; Back to Public Site</a>
+        <div class="form-group">
+            <label><i class="fas fa-phone"></i> Login ID</label>
+            <input type="text" id="loginId" placeholder="9935456145" />
+        </div>
+
+        <div class="form-group" style="position: relative;">
+            <label><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter password" style="padding-right: 40px;" />
+            <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; color: #D4AF37;"></i>
+        </div>
+
+        <button class="login-btn" onclick="handleLogin()">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+    </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-wrapper" id="adminWrapper">
+    <div class="admin-nav">
+        <div class="logo">📢 DJPS Admin</div>
+        <div class="user-info">
+            <span id="userDisplay"></span>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
     </div>
 
-    <div id="dashboardScreen">
-        <!-- FRIENDLY HEADER -->
-        <div class="admin-header">
-            <div class="user-profile">
-                <div class="avatar">S</div>
-                <div>
-                    <h2 style="margin: 0; font-family: 'Playfair Display', serif;">Welcome, Mr. Shashwat Pandey</h2>
-                    <p style="margin: 0; color: #D4AF37; font-size: 0.9rem;">Principal & Admin</p>
+    <div class="admin-content">
+        <h2 class="admin-title">Notices Management</h2>
+
+        <div class="success-msg" id="successMsg2"></div>
+
+        <!-- Add Notice Form -->
+        <div class="notice-form">
+            <h3><i class="fas fa-plus-circle"></i> Add New Notice</h3>
+
+            <div class="form-row">
+                <div class="form-group-item">
+                    <label>Notice Title *</label>
+                    <input type="text" id="noticeTitle" placeholder="E.g., School Closure Notice" />
+                </div>
+                <div class="form-group-item">
+                    <label>Link (Optional)</label>
+                    <input type="url" id="noticeLink" placeholder="https://example.com" />
                 </div>
             </div>
-            <div style="display:flex; gap:10px;">
-                <a href="updates.html" class="btn" style="width:auto; text-decoration:none; padding:10px 20px; background:rgba(212,175,55,0.2); color:#D4AF37;"><i class="fas fa-eye"></i> View Live Updates</a>
-                <button class="btn" style="width:auto; padding:10px 20px; background:rgba(255,71,87,0.2); color:#ff4757; border: 1px solid #ff4757;" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+
+            <div class="form-group-item">
+                <label>Notice Description *</label>
+                <textarea id="noticeDesc" placeholder="Write detailed notice here..."></textarea>
             </div>
+
+            <button class="submit-btn" onclick="addNotice()">
+                <i class="fas fa-paper-plane"></i> Publish Notice
+            </button>
         </div>
 
-        <!-- POST NOTICE -->
-        <div class="panel">
-            <h3><i class="fas fa-bullhorn"></i> Publish New Update</h3>
-            <input type="text" id="noticeTitle" class="admin-input" placeholder="Title (e.g. Summer Vacation)">
-            <textarea id="noticeDesc" class="admin-textarea" placeholder="Message details..."></textarea>
-            <input type="text" id="noticeLink" class="admin-input" placeholder="Optional: Attachment/Image Link (UPSC Style)">
-            <button class="btn" id="noticeBtn" onclick="publishNotice()">Publish to Live Website</button>
-        </div>
-
-        <!-- MANAGE/DELETE NOTICES -->
-        <div class="panel">
-            <h3><i class="fas fa-tasks"></i> Manage Existing Updates</h3>
-            <div id="adminNoticeList">
-                <p style="color:#aaa;"><i class="fas fa-spinner fa-spin"></i> Loading notices...</p>
+        <!-- Notices List -->
+        <div class="notices-section">
+            <h3><i class="fas fa-list"></i> All Notices (<span id="noticeCount">0</span>)</h3>
+            <div class="notices-list" id="noticesList">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading notices...</div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- FIREBASE LOGIC -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<!-- Firebase Scripts -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getFirestore, 
+        collection, 
+        addDoc, 
+        getDocs, 
+        deleteDoc, 
+        doc, 
+        query, 
+        orderBy 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
-            authDomain: "djps-website-3a826.firebaseapp.com",
-            projectId: "djps-website-3a826"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    // Firebase Config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
+        authDomain: "djps-website-3a826.firebaseapp.com",
+        projectId: "djps-website-3a826"
+    };
 
-        function showSuccess(msg) {
-            const toast = document.getElementById('statusMsg'); 
-            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 3000);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Credentials
+    const VALID_ID = "9935456145";
+    const VALID_PASS = "Divya_Jyoti_Public_School";
+
+    // Global variables
+    window.notices = [];
+    window.isLoggedIn = false;
+
+    // LOGIN HANDLER
+    window.handleLogin = function() {
+        const id = document.getElementById('loginId').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const errorMsg = document.getElementById('errorMsg');
+
+        if (!id || !pass) {
+            showError(errorMsg, '❌ Sab fields bharo!');
+            return;
         }
 
-        // POST NOTICE
-        window.publishNotice = async function() {
-            const title = document.getElementById('noticeTitle').value;
-            const desc = document.getElementById('noticeDesc').value;
-            const link = document.getElementById('noticeLink').value;
-            
-            if(!title || !desc) { alert("Please fill Title and Description!"); return; }
-            document.getElementById('noticeBtn').innerText = 'Publishing...';
-            
-            try {
-                await addDoc(collection(db, "Notices"), { title: title, description: desc, link: link || "", timestamp: serverTimestamp() });
-                showSuccess("Notice Posted!"); 
-                document.getElementById('noticeTitle').value = '';
-                document.getElementById('noticeDesc').value = '';
-                document.getElementById('noticeLink').value = '';
-                loadAdminNotices(); // Refresh list
-            } catch (error) { alert("Error: " + error.message); }
-            document.getElementById('noticeBtn').innerText = 'Publish to Live Website';
-        };
+        if (id === VALID_ID && pass === VALID_PASS) {
+            window.isLoggedIn = true;
+            localStorage.setItem('djpsLogin', 'true');
+            localStorage.setItem('djpsUser', id);
+            showAdminPanel(id);
+            loadNotices();
+            errorMsg.classList.remove('show');
+        } else {
+            showError(errorMsg, '❌ ID ya password galat hai!');
+        }
+    };
 
-        // LOAD AND DELETE NOTICES
-        window.loadAdminNotices = async function() {
-            const list = document.getElementById('adminNoticeList');
-            try {
-                const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
-                const snap = await getDocs(q);
-                list.innerHTML = "";
-                if(snap.empty) { list.innerHTML = "<p style='color:#aaa;'>No updates found.</p>"; return; }
-                
-                snap.forEach(d => {
-                    const data = d.data();
-                    list.innerHTML += `
-                        <div class="notice-list-item">
-                            <div>
-                                <strong style="color:#D4AF37;">${data.title}</strong>
-                            </div>
-                            <button onclick="deleteNotice('${d.id}')" style="background:#ff4757; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;"><i class="fas fa-trash"></i></button>
-                        </div>
-                    `;
+    // LOGOUT HANDLER
+    window.handleLogout = function() {
+        if (confirm('Logout kar du?')) {
+            window.isLoggedIn = false;
+            localStorage.removeItem('djpsLogin');
+            localStorage.removeItem('djpsUser');
+            document.getElementById('loginWrapper').classList.remove('hidden');
+            document.getElementById('adminWrapper').classList.remove('show');
+            document.getElementById('loginId').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+    };
+
+    // SHOW ADMIN PANEL
+    function showAdminPanel(userId) {
+        document.getElementById('loginWrapper').classList.add('hidden');
+        document.getElementById('adminWrapper').classList.add('show');
+        document.getElementById('userDisplay').textContent = `Logged in as: ${userId}`;
+    }
+
+    // LOAD NOTICES FROM FIRESTORE
+    window.loadNotices = async function() {
+        const list = document.getElementById('noticesList');
+        list.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+
+        try {
+            const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+            window.notices = [];
+
+            snapshot.forEach((doc) => {
+                window.notices.push({
+                    id: doc.id,
+                    ...doc.data()
                 });
-            } catch(e) { list.innerHTML = "<p style='color:red;'>Failed to load.</p>"; }
-        };
+            });
 
-        window.deleteNotice = async function(id) {
-            if(confirm("Are you sure you want to delete this update? It will be removed from the public website instantly.")) {
-                await deleteDoc(doc(db, "Notices", id));
-                showSuccess("Notice Deleted!");
-                loadAdminNotices();
-            }
-        };
-    </script>
-
-    <script>
-        function checkLogin() {
-            if(document.getElementById('phone').value === '9935456145' && document.getElementById('pass').value === 'Divya_Jyoti_Public_School') {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboardScreen').style.display = 'block';
-                window.loadAdminNotices(); // Load notices on login
-            } else { document.getElementById('errorMsg').style.display = 'block'; }
+            renderNotices();
+        } catch (e) {
+            console.error('Error loading:', e);
+            list.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading notices</p></div>';
         }
-    </script>
+    };
+
+    // RENDER NOTICES
+    function renderNotices() {
+        const list = document.getElementById('noticesList');
+        document.getElementById('noticeCount').textContent = window.notices.length;
+
+        if (window.notices.length === 0) {
+            list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Koi notice nahi hai abhi!</p></div>';
+            return;
+        }
+
+        list.innerHTML = window.notices.map(notice => `
+            <div class="notice-card">
+                <div class="notice-details">
+                    <h4>${escapeHtml(notice.title)}</h4>
+                    <p>${escapeHtml(notice.description)}</p>
+                    ${notice.link ? `<p><a href="${notice.link}" target="_blank" style="color: #D4AF37; text-decoration: none;"><i class="fas fa-link"></i> View Link</a></p>` : ''}
+                    <div class="notice-date">
+                        <i class="fas fa-calendar"></i> ${new Date(notice.timestamp?.toDate?.() || Date.now()).toLocaleDateString('en-IN')}
+                    </div>
+                </div>
+                <div class="notice-actions">
+                    <button class="delete-btn" onclick="deleteNotice('${notice.id}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ADD NOTICE
+    window.addNotice = async function() {
+        const title = document.getElementById('noticeTitle').value.trim();
+        const desc = document.getElementById('noticeDesc').value.trim();
+        const link = document.getElementById('noticeLink').value.trim();
+
+        if (!title || !desc) {
+            showError(document.getElementById('successMsg2'), '❌ Title aur Description dono zaroori hain!');
+            return;
+        }
+
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
+
+        try {
+            await addDoc(collection(db, "Notices"), {
+                title: title,
+                description: desc,
+                link: link || null,
+                timestamp: new Date()
+            });
+
+            // Clear form
+            document.getElementById('noticeTitle').value = '';
+            document.getElementById('noticeDesc').value = '';
+            document.getElementById('noticeLink').value = '';
+
+            // Reload notices
+            await window.loadNotices();
+
+            // Show success
+            const successMsg = document.getElementById('successMsg2');
+            successMsg.textContent = '✅ Notice published successfully!';
+            successMsg.classList.add('show');
+            setTimeout(() => successMsg.classList.remove('show'), 3000);
+
+          } catch (e) {
+            console.error('Error adding notice:', e);
+            showError(document.getElementById('successMsg2'), '❌ Error adding notice. Try again!');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Notice';
+        }
+    };
+
+    // DELETE NOTICE
+    window.deleteNotice = async function(noticeId) {
+        if (!confirm('Yeh notice delete kar du?')) return;
+
+        try {
+            await deleteDoc(doc(db, "Notices", noticeId));
+            await window.loadNotices();
+            
+            const successMsg = document.getElementById('successMsg2');
+            successMsg.textContent = '✅ Notice deleted!';
+            successMsg.classList.add('show');
+            setTimeout(() => successMsg.classList.remove('show'), 3000);
+        } catch (e) {
+            console.error('Error deleting:', e);
+            showError(document.getElementById('successMsg2'), '❌ Error deleting notice!');
+        }
+    };
+
+    // UTILITIES
+    function showError(element, message) {
+        element.textContent = message;
+        element.classList.add('show');
+        setTimeout(() => element.classList.remove('show'), 4000);
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Password Toggle Logic
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('loginPassword');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // Initialize on page load
+    window.addEventListener('load', () => {
+        if (localStorage.getItem('djpsLogin') === 'true') {
+            const userId = localStorage.getItem('djpsUser');
+            window.isLoggedIn = true;
+            showAdminPanel(userId);
+            window.loadNotices();
+        }
+    });
+
+    // Allow Enter key
+    document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !window.isLoggedIn) {
+            window.handleLogin();
+        }
+    });
+</script>
+
 </body>
 </html>
