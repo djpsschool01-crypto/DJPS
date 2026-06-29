@@ -33,37 +33,21 @@
         
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 15px; line-height: 1.2; }
         .hero h1 span { color: var(--neon-gold); font-size: clamp(1.8rem, 4vw, 3rem); display: block; margin-top: 5px; }
-        
-        /* CLICKABLE GOOGLE MAP BOX */
-        .location-link { text-decoration: none; color: inherit; display: block; margin-top: 40px; transition: transform 0.3s; }
-        .location-link:hover { transform: translateY(-5px); }
-        .location-box { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px 30px; background: rgba(20,25,35,0.6); border-radius: 15px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px); text-align: left; }
-        .map-icon { width: 50px; height: 50px; background: var(--neon-gold); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #000; font-size: 1.5rem; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.7); } 70% { box-shadow: 0 0 0 15px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
 
-        section { padding: 60px 5%; max-width: 1300px; margin: 0 auto; z-index: 10; position: relative; }
+        section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; z-index: 10; position: relative; }
         .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 40px; color: #fff; }
         .section-title span { color: var(--neon-gold); }
         
-        /* UPSC STYLE NOTICE BOARD */
-        .updates-container { background: rgba(20,25,35,0.6); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; padding: 30px; max-width: 800px; margin: auto; backdrop-filter: blur(10px); }
-        .notice-item { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 8px; }
-        .notice-item:last-child { border-bottom: none; }
-        .notice-title { font-size: 1.1rem; color: var(--neon-gold); font-weight: 500; }
-        .notice-desc { font-size: 0.9rem; color: #ccc; }
-        .notice-link { display: inline-block; padding: 5px 12px; background: rgba(212,175,55,0.1); border: 1px solid var(--neon-gold); color: var(--neon-gold); text-decoration: none; border-radius: 5px; font-size: 0.8rem; width: max-content; margin-top: 5px; transition: 0.3s; }
-        .notice-link:hover { background: var(--neon-gold); color: #000; }
-        .new-badge { background: red; color: white; padding: 2px 6px; font-size: 0.6rem; border-radius: 4px; vertical-align: top; margin-left: 8px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* Campus Cards */
-        .campus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .campus-card { background: #000; border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; overflow: hidden; height: 250px; position: relative; }
-        .campus-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-        .campus-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%); z-index: 1; }
-        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; z-index: 2; }
-        .card-info h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 5px; }
-        .card-info p { font-size: 0.8rem; color: var(--neon-gold); }
+        /* 6 Campus Cards */
+        .campus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .campus-card { background: #000; border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; overflow: hidden; height: 280px; position: relative; transition: var(--transition); cursor: pointer; }
+        .campus-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.7; }
+        .campus-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 80%); z-index: 1; }
+        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; z-index: 2; }
+        .card-info h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 5px; }
+        .card-info p { font-size: 0.85rem; color: var(--neon-gold); }
+        .campus-card:hover img { transform: scale(1.1); opacity: 1; }
+        .campus-card:hover { border-color: var(--neon-gold); box-shadow: 0 10px 30px rgba(212,175,55,0.4); transform: translateY(-5px); }
     </style>
 </head>
 <body>
@@ -74,13 +58,16 @@
         <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     </nav>
 
+    <!-- UPDATED SIDEBAR (For all pages) -->
     <div class="sidebar" id="sidebar">
         <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
         <div class="sidebar-links">
             <a href="index.html" style="color: var(--neon-gold);"><i class="fas fa-home"></i> Home</a>
             <a href="about.html"><i class="fas fa-book-open"></i> About Legacy</a>
             <a href="gallery.html"><i class="fas fa-images"></i> Full Gallery</a>
+            <a href="updates.html"><i class="fas fa-bell"></i> New Updates</a>
             <a href="admission.html"><i class="fas fa-user-graduate"></i> Admission Query</a>
+            <a href="contact.html"><i class="fas fa-address-book"></i> Contact Us</a>
             <hr style="border-color: #333; margin: 10px 0;">
             <a href="admin.html" style="color: #ff4757;"><i class="fas fa-user-shield"></i> Admin Portal</a>
         </div>
@@ -89,26 +76,7 @@
     <div class="hero">
         <h1>Welcome to <br><span>DIVYA JYOTI PUBLIC SCHOOL</span></h1>
         <p>Igniting Minds, Illuminating Futures in Chandauli.</p>
-        
-        <!-- CLICKABLE GOOGLE MAP LINK -->
-        <a href="https://maps.app.goo.gl/Bezzb2nUWTAFxp5g6?g_st=ac" target="_blank" class="location-link">
-            <div class="location-box">
-                <div class="map-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div>
-                    <h4 style="color: var(--neon-gold); margin-bottom: 5px;">Campus Location <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i></h4>
-                    <p style="font-size: 0.85rem; color: #ccc; margin:0;">FQ57+CGG, Kolhuwa, Beldand Road,<br>Chandauli, UP 274001</p>
-                </div>
-            </div>
-        </a>
     </div>
-
-    <!-- LIVE NOTICE BOARD SECTION -->
-    <section id="updates">
-        <h2 class="section-title">New <span>Updates</span></h2>
-        <div class="updates-container" id="noticeBoard">
-            <p style="text-align: center; color: #aaa;"><i class="fas fa-spinner fa-spin"></i> Checking for updates...</p>
-        </div>
-    </section>
 
     <section id="campus">
         <h2 class="section-title">Campus <span>Experience</span></h2>
@@ -116,61 +84,18 @@
             <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/School%20building.jpg"><div class="card-info"><h4>Academic Block</h4><p>State-of-the-art infrastructure.</p></div></div>
             <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Library.jpg"><div class="card-info"><h4>Central Library</h4><p>Massive reference collections.</p></div></div>
             <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Games.jpg"><div class="card-info"><h4>Sports Complex</h4><p>Fostering physical wellness.</p></div></div>
+            <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Rangoli%20competition.jpg"><div class="card-info"><h4>Cultural Heritage</h4><p>Celebrating student creativity.</p></div></div>
+            <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Award.jpg"><div class="card-info"><h4>Hall of Fame</h4><p>Recognizing achievements.</p></div></div>
+            <div class="campus-card"><img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Event.jpg"><div class="card-info"><h4>Events & Seminars</h4><p>Shaping tomorrow's leaders.</p></div></div>
         </div>
     </section>
 
     <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px;">
-        <p>© 2026 Divya Jyoti Public School.</p>
+        <p>© 2026 Divya Jyoti Public School. Engineered with Premium UI.</p>
     </footer>
-
-    <!-- FIREBASE FETCH FOR NOTICES -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
-            authDomain: "djps-website-3a826.firebaseapp.com",
-            projectId: "djps-website-3a826"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function fetchNotices() {
-            const board = document.getElementById('noticeBoard');
-            try {
-                // Fetch latest 5 notices from Firebase
-                const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"), limit(5));
-                const snapshot = await getDocs(q);
-                
-                if(snapshot.empty) {
-                    board.innerHTML = "<p style='text-align:center; color:#888;'>No new updates at the moment.</p>";
-                    return;
-                }
-
-                board.innerHTML = ""; // Clear loading text
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    let linkHtml = data.link ? `<a href="${data.link}" target="_blank" class="notice-link"><i class="fas fa-file-download"></i> View Attachment</a>` : '';
-                    
-                    board.innerHTML += `
-                        <div class="notice-item">
-                            <div class="notice-title">${data.title} <span class="new-badge">NEW</span></div>
-                            <div class="notice-desc">${data.description}</div>
-                            ${linkHtml}
-                        </div>
-                    `;
-                });
-            } catch(e) {
-                board.innerHTML = "<p style='text-align:center; color:red;'>Failed to load updates.</p>";
-            }
-        }
-        fetchNotices();
-    </script>
 
     <script>
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
     </script>
 </body>
 </html>
-
