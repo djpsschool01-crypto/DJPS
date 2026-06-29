@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About DJPS Legacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #050508; --gold: #D4AF37; --text: #fff; --text-muted: #a0aabf; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
+        
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: rgba(5,5,8,0.95); border-bottom: 1px solid rgba(212,175,55,0.2); position:fixed; width:100%; z-index:1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight:800; } 
+        .logo span { color: var(--gold); font-size: 0.7rem; display: block; letter-spacing: 3px; text-transform: uppercase; }
+        .back-btn { color: var(--gold); text-decoration: none; font-weight: 500; transition: 0.3s; border: 1px solid var(--gold); padding: 8px 15px; border-radius: 20px; }
+        .back-btn:hover { background: var(--gold); color: #000; }
+
+        .about-hero { padding: 150px 20px 50px 20px; text-align: center; background: radial-gradient(circle at top, rgba(212,175,55,0.1), transparent 50%); }
+        .about-hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; margin-bottom: 15px; }
+        .about-hero h1 span { color: var(--gold); font-style: italic; }
+        .about-hero p { color: var(--text-muted); max-width: 600px; margin: auto; font-size: 1.1rem; }
+
+        .container { max-width: 1200px; margin: 0 auto 80px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 40px; }
+        
+        .liquid-panel { background: linear-gradient(145deg, rgba(20, 25, 35, 0.7), rgba(5, 8, 15, 0.5)); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; box-shadow: 0 15px 30px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+        .liquid-panel:hover { transform: translateY(-5px); border-top-color: #fff; }
+        
+        .liquid-panel h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .liquid-panel h3 i { font-size: 1.5rem; color: #00e1ff; }
+        .liquid-panel p { color: var(--text-muted); line-height: 1.8; font-size: 1.05rem; margin-bottom: 15px; text-align: justify; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
+        
+        .quote-box { border-left: 4px solid var(--gold); padding-left: 20px; margin: 20px 0; font-style: italic; color: #ddd; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    
+    <nav>
+        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+    </nav>
+
+    <div class="about-hero">
+        <h1>Our <span>Legacy</span></h1>
+        <p>A decade of igniting minds, building character, and shaping the future leaders of tomorrow.</p>
+    </div>
+
+    <div class="container">
+        <div class="liquid-panel">
+            <h3><i class="fas fa-landmark"></i> The Genesis & History</h3>
+            <p>Established in 2010, Divya Jyoti Public School (Affiliation No: 2132727) stands as a monumental beacon of academic brilliance and cultural heritage in the heart of Chandauli. Over the past decade, we have dedicated ourselves entirely to the monumental task of transforming young, impressionable minds into responsible, highly skilled, and deeply empathetic global citizens.</p>
+            <p>Our foundational philosophy is simple yet profound: true education goes far beyond the boundaries of textbooks and rigid syllabi. At DJPS, we believe fundamentally in character building, in the meticulous instillation of core moral values, and in providing a nurturing environment.</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="liquid-panel">
+                <h3><i class="fas fa-eye"></i> Vision & Mission</h3>
+                <p>Under the visionary, steadfast leadership of our respected Principal, Mr. Shashwat Pandey, the institution has consistently achieved extraordinary milestones in both scholastic and co-scholastic domains.</p>
+                <div class="quote-box">
+                    "Education is the most powerful weapon which you can use to change the world. We don't just teach the syllabus; we build character." <br><span style="color:var(--gold); font-size:0.9rem; font-weight:bold;">- Mr. Shashwat Pandey</span>
+                </div>
+            </div>
+
+            <div class="liquid-panel">
+                <h3><i class="fas fa-building"></i> World-Class Infrastructure</h3>
+                <p>Our state-of-the-art infrastructure is a testament to our commitment to modern education. The campus houses highly advanced, comprehensive science laboratories equipped with the latest technological apparatus.</p>
+                <p>We boast expansive sports complexes designed to foster physical wellness and competitive spirit, along with a massive central library acting as a temple of knowledge.</p>
+            </div>
+        </div>
+      
+        <div class="liquid-panel">
+            <h3><i class="fas fa-book-reader"></i> Academic Pedagogy & Community</h3>
+            <p>Our highly qualified, dedicated faculty undergo continuous training to employ modern, tech-driven teaching methodologies. From the Play-way methodologies in our Pre-Primary sections (Nursery to UKG) to the specialized, intensive focus on core subjects and IT integration for Secondary (Classes 9 & 10) and Senior Secondary streams (PCM, PCB, Commerce, and Humanities in Classes 11 & 12), DJPS leaves no stone unturned.</p>
+            <p>We are not just a school; we are a vibrant community. Through cultural events, science exhibitions, national-level sports participation, and rigorous academic training, we ensure that the students stepping out of our gates are fully prepared to face the immense challenges of tomorrow's fast-paced world.</p>
+        </div>
+    </div>
+</body>
+</html>
