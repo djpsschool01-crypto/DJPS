@@ -7,22 +7,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
-        nav { display: flex; justify-content: space-between; align-items:center; padding: 20px 40px; background: rgba(5,5,8,0.9); border-bottom: 1px solid rgba(212,175,55,0.2); position:fixed; width:100%; z-index:1000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight:800; } 
-        .logo span { color: #D4AF37; font-size: 0.7rem; display: block; letter-spacing: 3px; }
-        .back-btn { color: #D4AF37; text-decoration: none; font-weight: 500; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
-        .back-btn:hover { background: #D4AF37; color: #000; }
+        body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        * { box-sizing: border-box; }
         
-        .liquid-glass { background: linear-gradient(145deg, rgba(20,25,35,0.7), rgba(5,8,15,0.5)); border: 1px solid rgba(255,215,0,0.2); border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); max-width: 800px; margin: 120px auto 50px auto; }
-        .liquid-glass h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #D4AF37; text-align: center; margin-bottom: 30px; }
+        nav { display: flex; justify-content: space-between; align-items:center; padding: 20px 5%; background: rgba(5,5,8,0.9); border-bottom: 1px solid rgba(212,175,55,0.2); position:fixed; width:100%; z-index:1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight:800; } 
+        .logo span { color: #D4AF37; font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .back-btn { color: #D4AF37; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; }
+        
+        .liquid-glass { background: linear-gradient(145deg, rgba(20,25,35,0.7), rgba(5,8,15,0.5)); border: 1px solid rgba(255,215,0,0.2); border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); width: 90%; max-width: 800px; margin: 120px auto 50px auto; }
+        .liquid-glass h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.5rem); color: #D4AF37; text-align: center; margin-bottom: 20px; }
         
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .input-box { display: flex; flex-direction: column; gap: 8px; }
         .input-box label { font-size: 0.85rem; color: #D4AF37; font-weight: 500; text-transform: uppercase; }
-        .input-box input, .input-box select { padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; outline: none; font-family: 'Poppins'; }
-        .submit-btn { grid-column: 1 / -1; padding: 18px; border: none; border-radius: 10px; background: linear-gradient(135deg, #e8c454, #b59223); color: #000; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .submit-btn:hover { box-shadow: 0 10px 20px rgba(212,175,55,0.4); transform: translateY(-2px); }
+        .input-box input, .input-box select { width: 100%; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; outline: none; font-family: 'Poppins'; font-size: 1rem; }
+        .submit-btn { grid-column: 1 / -1; padding: 18px; border: none; border-radius: 10px; background: linear-gradient(135deg, #e8c454, #b59223); color: #000; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 15px; }
+        
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .liquid-glass { padding: 25px; width: 95%; margin-top: 100px; }
+        }
     </style>
 </head>
 <body>
@@ -33,48 +38,103 @@
 
     <div class="liquid-glass">
         <h2>Admission Query</h2>
-        <p style="text-align: center; color: #aaa; margin-bottom: 25px;">Submit your details to securely connect with our WhatsApp Administration Desk.</p>
+        <p style="text-align: center; color: #aaa; margin-bottom: 25px; font-size: 0.9rem;">Submit details to securely connect with our WhatsApp Desk.</p>
         
         <form id="whatsappForm">
             <div class="form-grid">
                 <div class="input-box" style="grid-column: 1 / -1;">
                     <label>Student Name</label>
-                    <input type="text" id="waName" required>
+                    <input type="text" id="waName" placeholder="Enter full name" required>
                 </div>
+                
                 <div class="input-box">
                     <label>Previous Class</label>
-                    <select id="waPrev" required>
-                        <option value="None">None / Fresher</option>
+                    <select id="waPrev" onchange="autoFillNextClass()" required>
+                        <option value="" disabled selected>Select Passed Class</option>
+                        <option value="Fresher">None / Fresher</option>
+                        <option value="Nursery">Nursery</option>
+                        <option value="LKG">LKG</option>
+                        <option value="UKG">UKG</option>
                         <option value="Class 1">Class 1</option>
-                        <option value="Class 5">Class 5</option>
-                        <option value="Class 8">Class 8</option>
-                        <option value="Class 10">Class 10</option>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <label>Admission Required For</label>
-                    <select id="waNext" required>
-                        <option value="Nursery">Nursery / LKG / UKG</option>
                         <option value="Class 2">Class 2</option>
+                        <option value="Class 3">Class 3</option>
+                        <option value="Class 4">Class 4</option>
+                        <option value="Class 5">Class 5</option>
                         <option value="Class 6">Class 6</option>
+                        <option value="Class 7">Class 7</option>
+                        <option value="Class 8">Class 8</option>
                         <option value="Class 9">Class 9</option>
+                        <!-- 10th is deliberately skipped -->
                         <option value="Class 11">Class 11</option>
                     </select>
                 </div>
+
+                <div class="input-box">
+                    <label>Admission Required For</label>
+                    <select id="waNext" required>
+                        <option value="" disabled selected>Auto-selected Next Class</option>
+                        <option value="Nursery">Nursery</option>
+                        <option value="LKG">LKG</option>
+                        <option value="UKG">UKG</option>
+                        <option value="Class 1">Class 1</option>
+                        <option value="Class 2">Class 2</option>
+                        <option value="Class 3">Class 3</option>
+                        <option value="Class 4">Class 4</option>
+                        <option value="Class 5">Class 5</option>
+                        <option value="Class 6">Class 6</option>
+                        <option value="Class 7">Class 7</option>
+                        <option value="Class 8">Class 8</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                        <option value="Class 11">Class 11</option>
+                        <option value="Class 12">Class 12</option>
+                    </select>
+                </div>
+
                 <div class="input-box">
                     <label>Year of Passing</label>
-                    <input type="number" id="waYear" required>
+                    <select id="waYear" required>
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
                 </div>
+
                 <div class="input-box">
                     <label>Contact Phone</label>
-                    <input type="tel" id="waContact" required>
+                    <input type="tel" id="waContact" placeholder="Phone Number" required>
                 </div>
+                
                 <button type="submit" class="submit-btn" id="waBtn">Connect on WhatsApp <i class="fab fa-whatsapp"></i></button>
             </div>
         </form>
     </div>
 
     <script>
+        // SMART CLASS LOGIC
+        function autoFillNextClass() {
+            const prev = document.getElementById('waPrev').value;
+            const nextSelect = document.getElementById('waNext');
+            
+            const classMap = {
+                "Fresher": "Nursery", "Nursery": "LKG", "LKG": "UKG", "UKG": "Class 1",
+                "Class 1": "Class 2", "Class 2": "Class 3", "Class 3": "Class 4", 
+                "Class 4": "Class 5", "Class 5": "Class 6", "Class 6": "Class 7", 
+                "Class 7": "Class 8", "Class 8": "Class 9", "Class 9": "Class 10", 
+                "Class 11": "Class 12"
+            };
+
+            if(classMap[prev]) {
+                nextSelect.value = classMap[prev];
+            }
+        }
+
+        // WHATSAPP SUBMISSION
         document.getElementById('whatsappForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const n = document.getElementById('waName').value;
@@ -83,7 +143,7 @@
             const y = document.getElementById('waYear').value;
             const c = document.getElementById('waContact').value;
             
-            const msg = `*New Admission Query*%0A%0A*Name:* ${n}%0A*Phone:* ${c}%0A*Previous Class:* ${p} (${y})%0A*Admission For:* ${nx}`;
+            const msg = `*New Admission Query*%0A%0A*Name:* ${n}%0A*Phone:* ${c}%0A*Passed:* ${p} (Year: ${y})%0A*Admission Required For:* ${nx}`;
             
             const btn = document.getElementById('waBtn');
             btn.innerHTML = 'Connecting...';
@@ -95,3 +155,4 @@
     </script>
 </body>
 </html>
+
