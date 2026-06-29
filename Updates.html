@@ -2,45 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Updates | DJPS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>School Notices | DJPS</title>
     <style>
-        body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
-        nav { display: flex; justify-content: space-between; align-items:center; padding: 20px 5%; background: rgba(5,5,8,0.9); border-bottom: 1px solid rgba(212,175,55,0.2); position:fixed; width:100%; z-index:1000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight:800; } 
-        .logo span { color: #D4AF37; font-size: 0.6rem; display: block; letter-spacing: 3px; }
-        .back-btn { color: #D4AF37; text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; }
-        
-        .updates-container { padding: 120px 5% 50px 5%; max-width: 900px; margin: auto; }
-        .updates-container h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); text-align: center; color: #D4AF37; margin-bottom: 40px; }
-        
-        /* UPSC STYLE NOTICE BOARD */
-        .board-box { background: linear-gradient(145deg, rgba(20,25,35,0.7), rgba(5,8,15,0.5)); border: 1px solid rgba(212,175,55,0.2); border-radius: 15px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .notice-item { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 10px; }
-        .notice-item:last-child { border-bottom: none; }
-        .notice-title { font-size: 1.2rem; color: #D4AF37; font-weight: 500; }
-        .notice-desc { font-size: 0.95rem; color: #ccc; line-height: 1.6; }
-        .notice-link { display: inline-block; padding: 8px 15px; background: rgba(212,175,55,0.1); border: 1px solid #D4AF37; color: #D4AF37; text-decoration: none; border-radius: 5px; font-size: 0.85rem; width: max-content; transition: 0.3s; margin-top: 5px;}
-        .notice-link:hover { background: #D4AF37; color: #000; }
-        .new-badge { background: red; color: white; padding: 2px 6px; font-size: 0.65rem; border-radius: 4px; vertical-align: top; margin-left: 8px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+        .notice-card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h4 { color: #D4AF37; margin: 0 0 10px 0; }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
-    </nav>
-
-    <div class="updates-container">
-        <h2>Live Updates & Notices</h2>
-        
-        <div class="board-box" id="noticeBoard">
-            <p style="text-align: center; color: #aaa;"><i class="fas fa-spinner fa-spin"></i> Fetching latest updates from Server...</p>
-        </div>
-    </div>
+    <h1>Latest School Notices</h1>
+    <div id="publicNoticesList">Loading notices...</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -55,32 +26,22 @@
         const db = getFirestore(app);
 
         async function fetchNotices() {
-            const board = document.getElementById('noticeBoard');
-            try {
-                const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
-                const snapshot = await getDocs(q);
-                
-                if(snapshot.empty) {
-                    board.innerHTML = "<p style='text-align:center; color:#888;'>No new updates at the moment.</p>";
-                    return;
-                }
-
-                board.innerHTML = ""; 
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    let linkHtml = data.link ? `<a href="${data.link}" target="_blank" class="notice-link"><i class="fas fa-file-download"></i> View Document / Link</a>` : '';
-                    
-                    board.innerHTML += `
-                        <div class="notice-item">
-                            <div class="notice-title">${data.title} <span class="new-badge">NEW</span></div>
-                            <div class="notice-desc">${data.description}</div>
-                            ${linkHtml}
-                        </div>
-                    `;
-                });
-            } catch(e) {
-                board.innerHTML = "<p style='text-align:center; color:red;'>Failed to load updates. Please check your connection.</p>";
-            }
+            const list = document.getElementById('publicNoticesList');
+            const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+            list.innerHTML = ""; // Clear loader
+            
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                list.innerHTML += `
+                    <div class="notice-card">
+                        <h4>${data.title}</h4>
+                        <p>${data.description}</p>
+                        ${data.link ? `<a href="${data.link}" target="_blank">View Link</a>` : ''}
+                        <small>${new Date(data.timestamp.toDate()).toLocaleDateString()}</small>
+                    </div>
+                `;
+            });
         }
         fetchNotices();
     </script>
