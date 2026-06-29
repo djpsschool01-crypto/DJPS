@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJPS | Full Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+        nav { display: flex; justify-content: space-between; align-items:center; padding: 20px 40px; background: rgba(5,5,8,0.9); border-bottom: 1px solid rgba(212,175,55,0.2); position:fixed; width:100%; z-index:1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight:800; } 
+        .logo span { color: #D4AF37; font-size: 0.7rem; display: block; letter-spacing: 3px; }
+        .back-btn { color: #D4AF37; text-decoration: none; font-weight: 500; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
+        .back-btn:hover { background: #D4AF37; color: #000; }
+        
+        .gallery-container { padding: 120px 5% 50px 5%; max-width: 1400px; margin: auto; }
+        .gallery-container h2 { font-family: 'Playfair Display', serif; font-size: 3rem; text-align: center; color: #D4AF37; margin-bottom: 40px; }
+        
+        .masonry-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .masonry-gallery img { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); transition: 0.4s ease; cursor: pointer; }
+        .masonry-gallery img:hover { transform: scale(1.05); border-color: #D4AF37; box-shadow: 0 15px 30px rgba(212,175,55,0.4); z-index: 2; position: relative; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+    </nav>
+
+    <div class="gallery-container">
+        <h2>Moments Gallery</h2>
+        <div class="masonry-gallery">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/School%20building.jpg">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Library.jpg">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Games.jpg">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Rangoli%20competition.jpg">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Award.jpg">
+            <img src="https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/Event.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084909.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084911.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084910.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084907.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084908.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084904.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084905.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084906.jpg">
+            <img src="https://cdn.postimage.me/2026/06/14/1000084903.jpg">
+        </div>
+    </div>
+</body>
+</html>
