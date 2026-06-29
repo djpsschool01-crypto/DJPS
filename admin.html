@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,89 +7,88 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #f4f6f9; color: #333; font-family: 'Poppins', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        body { background: url('https://cache.careers360.mobi/media/schools/social-media/media-gallery/17662/2023/3/14/School%20building.jpg') center/cover; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; position: relative; }
+        body::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,8,0.8), rgba(5,5,8,0.95)); backdrop-filter: blur(8px); z-index: -1; }
         * { box-sizing: border-box; }
         
-        /* LOGIN SCREEN */
-        #loginScreen { background: #fff; padding: 40px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .input-box input { width: 100%; padding: 15px; margin-bottom: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: 'Poppins'; }
+        /* BEAUTIFUL GLASS LOGIN */
+        #loginScreen { background: rgba(20, 25, 35, 0.6); padding: 50px 40px; border-radius: 20px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(15px); }
+        .input-box input { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; outline: none; font-family: 'Poppins'; color: #fff; }
         .input-box input:focus { border-color: #D4AF37; }
-        .btn { width: 100%; padding: 15px; background: #1a202c; color: #fff; font-weight: 500; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: #D4AF37; color: #000; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #e8c454, #b59223); color: #000; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { box-shadow: 0 10px 20px rgba(212,175,55,0.3); transform: translateY(-2px); }
         
-        /* DASHBOARD SCREEN */
+        /* DASHBOARD */
         #dashboardScreen { display: none; width: 100%; max-width: 800px; margin: auto; }
-        
-        /* FRIENDLY AVATAR HEADER */
-        .admin-header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 20px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 25, 35, 0.7); padding: 25px; border-radius: 15px; margin-bottom: 30px; border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(10px); flex-wrap: wrap; gap: 20px; }
         .user-profile { display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 60px; height: 60px; background: linear-gradient(135deg, #D4AF37, #e8c454); color: #fff; font-size: 1.8rem; font-weight: 600; display: flex; justify-content: center; align-items: center; border-radius: 50%; }
-        .user-info h2 { margin: 0; font-size: 1.4rem; color: #1a202c; }
-        .user-info p { margin: 0; color: #888; font-size: 0.9rem; }
-        .header-actions { display: flex; gap: 10px; }
-        .btn-outline { padding: 10px 20px; border: 1px solid #ddd; background: #fff; border-radius: 8px; color: #333; text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: 0.3s; }
-        .btn-outline:hover { background: #f9f9f9; border-color: #ccc; }
+        .avatar { width: 60px; height: 60px; background: linear-gradient(135deg, #D4AF37, #e8c454); color: #000; font-size: 2rem; font-family: 'Playfair Display'; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
         
-        /* PANELS */
-        .panel { background: #fff; padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .panel h3 { margin-top: 0; color: #1a202c; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
-        .admin-input, .admin-textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: 'Poppins'; }
+        .panel { background: rgba(20, 25, 35, 0.7); padding: 30px; border-radius: 15px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
+        .panel h3 { margin-top: 0; color: #D4AF37; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
+        .admin-input, .admin-textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; outline: none; font-family: 'Poppins'; color:#fff;}
         .admin-textarea { height: 120px; resize: vertical; }
         
-        #statusMsg { position: fixed; top: 20px; right: 20px; padding: 15px 25px; background: #4CAF50; color: #fff; font-weight: 500; border-radius: 8px; display: none; z-index: 9999; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .notice-list-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #D4AF37; }
         
-        @media (max-width: 600px) { .admin-header { flex-direction: column; align-items: flex-start; } }
+        #statusMsg { position: fixed; top: 20px; right: 20px; padding: 15px 25px; background: #2ecc71; color: #000; font-weight: 600; border-radius: 10px; display: none; z-index: 9999; }
     </style>
 </head>
 <body>
 
-    <div id="statusMsg"><i class="fas fa-check-circle"></i> Update Successful!</div>
+    <div id="statusMsg"><i class="fas fa-check-circle"></i> Action Successful!</div>
 
+    <!-- ELEGANT LOGIN -->
     <div id="loginScreen">
-        <h2 style="font-family: 'Playfair Display', serif; color: #1a202c;">Admin Login</h2>
-        <p style="color: #888; font-size: 0.9rem; margin-bottom: 30px;">Divya Jyoti Public School</p>
+        <h2 style="font-family: 'Playfair Display', serif; color: #D4AF37; font-size:2rem; margin-bottom:5px;">Admin Portal</h2>
+        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 30px;">Divya Jyoti Public School</p>
         
         <div class="input-box"><input type="text" id="phone" placeholder="Phone Number"></div>
         <div class="input-box"><input type="password" id="pass" placeholder="Password"></div>
-        <p id="errorMsg" style="color: red; font-size: 0.85rem; display: none; margin-bottom: 15px;">Incorrect Credentials</p>
+        <p id="errorMsg" style="color: #ff4757; font-size: 0.85rem; display: none; margin-bottom: 15px;">Incorrect Credentials</p>
         
-        <button class="btn" onclick="checkLogin()">Login</button>
-        <a href="index.html" style="color: #888; text-decoration: none; font-size: 0.8rem; display: block; margin-top: 20px;">Back to Home</a>
+        <button class="btn" onclick="checkLogin()">Login Securely</button>
+        <a href="index.html" style="color: #D4AF37; text-decoration: none; font-size: 0.85rem; display: block; margin-top: 25px;">&larr; Back to Public Site</a>
     </div>
 
     <div id="dashboardScreen">
-        
         <!-- FRIENDLY HEADER -->
         <div class="admin-header">
             <div class="user-profile">
                 <div class="avatar">S</div>
-                <div class="user-info">
-                    <h2>Welcome, Shashwat</h2>
-                    <p>Principal & Admin</p>
+                <div>
+                    <h2 style="margin: 0; font-family: 'Playfair Display', serif;">Welcome, Shashwat</h2>
+                    <p style="margin: 0; color: #D4AF37; font-size: 0.9rem;">Principal & Admin</p>
                 </div>
             </div>
-            <div class="header-actions">
-                <a href="index.html" class="btn-outline"><i class="fas fa-globe"></i> Go to Website</a>
-                <button class="btn-outline" style="color: red;" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <div style="display:flex; gap:10px;">
+                <a href="updates.html" class="btn" style="width:auto; text-decoration:none; padding:10px 20px; background:rgba(212,175,55,0.2); color:#D4AF37;"><i class="fas fa-eye"></i> View Live Updates</a>
+                <button class="btn" style="width:auto; padding:10px 20px; background:rgba(255,71,87,0.2); color:#ff4757; border: 1px solid #ff4757;" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
 
-        <!-- NOTICE BOARD -->
+        <!-- POST NOTICE -->
         <div class="panel">
-            <h3><i class="fas fa-bell" style="color:#D4AF37;"></i> Post New Update / Notice</h3>
-            <p style="font-size: 0.85rem; color: #888; margin-top: -10px; margin-bottom: 20px;">This will immediately show on the public website's "New Updates" section.</p>
-            
-            <input type="text" id="noticeTitle" class="admin-input" placeholder="Title (e.g. Summer Vacation Announced)">
-            <textarea id="noticeDesc" class="admin-textarea" placeholder="Write message details..."></textarea>
-            <input type="text" id="noticeLink" class="admin-input" placeholder="Optional: Paste Image/PDF Link (UPSC Style)">
-            
-            <button class="btn" id="noticeBtn" onclick="publishNotice()">Publish Update</button>
+            <h3><i class="fas fa-bullhorn"></i> Publish New Update</h3>
+            <input type="text" id="noticeTitle" class="admin-input" placeholder="Title (e.g. Summer Vacation)">
+            <textarea id="noticeDesc" class="admin-textarea" placeholder="Message details..."></textarea>
+            <input type="text" id="noticeLink" class="admin-input" placeholder="Optional: Attachment/Image Link (UPSC Style)">
+            <button class="btn" id="noticeBtn" onclick="publishNotice()">Publish to Live Website</button>
+        </div>
+
+        <!-- MANAGE/DELETE NOTICES -->
+        <div class="panel">
+            <h3><i class="fas fa-tasks"></i> Manage Existing Updates</h3>
+            <div id="adminNoticeList">
+                <p style="color:#aaa;"><i class="fas fa-spinner fa-spin"></i> Loading notices...</p>
+            </div>
         </div>
     </div>
 
+    <!-- FIREBASE LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
@@ -106,6 +105,7 @@
             setTimeout(() => toast.style.display = 'none', 3000);
         }
 
+        // POST NOTICE
         window.publishNotice = async function() {
             const title = document.getElementById('noticeTitle').value;
             const desc = document.getElementById('noticeDesc').value;
@@ -115,18 +115,45 @@
             document.getElementById('noticeBtn').innerText = 'Publishing...';
             
             try {
-                await addDoc(collection(db, "Notices"), { 
-                    title: title, 
-                    description: desc, 
-                    link: link || "",
-                    timestamp: serverTimestamp() 
-                });
-                showSuccess("Notice Posted Successfully!"); 
+                await addDoc(collection(db, "Notices"), { title: title, description: desc, link: link || "", timestamp: serverTimestamp() });
+                showSuccess("Notice Posted!"); 
                 document.getElementById('noticeTitle').value = '';
                 document.getElementById('noticeDesc').value = '';
                 document.getElementById('noticeLink').value = '';
+                loadAdminNotices(); // Refresh list
             } catch (error) { alert("Error: " + error.message); }
-            document.getElementById('noticeBtn').innerText = 'Publish Update';
+            document.getElementById('noticeBtn').innerText = 'Publish to Live Website';
+        };
+
+        // LOAD AND DELETE NOTICES
+        window.loadAdminNotices = async function() {
+            const list = document.getElementById('adminNoticeList');
+            try {
+                const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
+                const snap = await getDocs(q);
+                list.innerHTML = "";
+                if(snap.empty) { list.innerHTML = "<p style='color:#aaa;'>No updates found.</p>"; return; }
+                
+                snap.forEach(d => {
+                    const data = d.data();
+                    list.innerHTML += `
+                        <div class="notice-list-item">
+                            <div>
+                                <strong style="color:#D4AF37;">${data.title}</strong>
+                            </div>
+                            <button onclick="deleteNotice('${d.id}')" style="background:#ff4757; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+            } catch(e) { list.innerHTML = "<p style='color:red;'>Failed to load.</p>"; }
+        };
+
+        window.deleteNotice = async function(id) {
+            if(confirm("Are you sure you want to delete this update? It will be removed from the public website instantly.")) {
+                await deleteDoc(doc(db, "Notices", id));
+                showSuccess("Notice Deleted!");
+                loadAdminNotices();
+            }
         };
     </script>
 
@@ -135,6 +162,7 @@
             if(document.getElementById('phone').value === '9935456145' && document.getElementById('pass').value === 'Divya_Jyoti_Public_School') {
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboardScreen').style.display = 'block';
+                window.loadAdminNotices(); // Load notices on login
             } else { document.getElementById('errorMsg').style.display = 'block'; }
         }
     </script>
