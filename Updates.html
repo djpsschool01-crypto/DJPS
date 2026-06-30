@@ -2,48 +2,194 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>School Notices | DJPS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Notices | Divya Jyoti Public School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
-        .notice-card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h4 { color: #D4AF37; margin: 0 0 10px 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #f4f7f6; 
+            color: #333;
+        }
+
+        /* HEADER */
+        header { 
+            background: linear-gradient(135deg, rgba(26, 26, 46, 1) 0%, rgba(22, 33, 62, 1) 100%); 
+            color: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 3px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .school-logo { 
+            width: 50px; height: 50px; 
+            background: linear-gradient(135deg, #D4AF37 0%, #f0c94a 100%); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; color: #1a1a2e; 
+        }
+        .school-info h1 { font-family: 'Playfair Display', serif; font-size: 20px; }
+        .school-info p { font-size: 11px; color: #D4AF37; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid #D4AF37;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #D4AF37; color: #1a1a2e; }
+
+        /* NOTICE BOARD SECTION */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 5%; min-height: 70vh; }
+        .page-title { 
+            text-align: center; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 32px; 
+            color: #1a1a2e; 
+            margin-bottom: 40px;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 15px;
+        }
+        .page-title span { color: #D4AF37; }
+
+        .notices-grid { display: flex; flex-direction: column; gap: 20px; }
+        
+        .notice-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-left: 5px solid #D4AF37; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+            animation: slideUp 0.4s ease;
+        }
+        .notice-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212,175,55,0.15); }
+        
+        .notice-card h3 { color: #1a1a2e; margin-bottom: 10px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .notice-card h3 i { color: #D4AF37; }
+        .notice-card p { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 15px; }
+        .notice-card .link-btn { color: #D4AF37; font-weight: 600; text-decoration: none; font-size: 14px; }
+        .notice-card .link-btn:hover { text-decoration: underline; }
+        
+        .notice-meta { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;
+        }
+        .notice-date { font-size: 12px; color: #888; font-weight: 500; }
+        .authority { font-size: 12px; color: #1a1a2e; font-weight: 600; background: #f0f0f0; padding: 4px 10px; border-radius: 4px; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loader { text-align: center; padding: 50px; color: #D4AF37; font-size: 18px; }
+        
+        /* FOOTER */
+        footer { background: #16213e; color: white; text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; }
     </style>
 </head>
 <body>
-    <h1>Latest School Notices</h1>
-    <div id="publicNoticesList">Loading notices...</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<!-- Header -->
+<header>
+    <div class="logo-section">
+        <div class="school-logo"><i class="fas fa-book-reader"></i></div>
+        <div class="school-info">
+            <h1>DIVYA JYOTI</h1>
+            <p>Notice Board</p>
+        </div>
+    </div>
+    <!-- Back to home link -->
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+</header>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
-            authDomain: "djps-website-3a826.firebaseapp.com",
-            projectId: "djps-website-3a826"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<!-- Notice Board Content -->
+<div class="container">
+    <h2 class="page-title">Official <span>Notices & Updates</span></h2>
+    
+    <div class="notices-grid" id="noticesContainer">
+        <!-- Spinner while loading -->
+        <div class="loader">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p style="margin-top: 10px;">Loading notices...</p>
+        </div>
+    </div>
+</div>
 
-        async function fetchNotices() {
-            const list = document.getElementById('publicNoticesList');
+<footer>
+    <p>© 2026 Divya Jyoti Public School | Official Notice Board</p>
+</footer>
+
+<!-- Firebase Connection Script -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Tumhara Database Address
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
+        authDomain: "djps-website-3a826.firebaseapp.com",
+        projectId: "djps-website-3a826"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadNotices() {
+        const container = document.getElementById('noticesContainer');
+        try {
             const q = query(collection(db, "Notices"), orderBy("timestamp", "desc"));
             const snapshot = await getDocs(q);
-            list.innerHTML = ""; // Clear loader
             
+            if(snapshot.empty) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 50px; background: white; border-radius: 12px; color: #999;">
+                        <i class="fas fa-inbox fa-3x" style="margin-bottom: 15px; color: #ccc;"></i>
+                        <p>No new notices available at the moment.</p>
+                    </div>`;
+                return;
+            }
+
+            let html = '';
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                list.innerHTML += `
+                const date = new Date(data.timestamp?.toDate?.() || Date.now()).toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                });
+                
+                html += `
                     <div class="notice-card">
-                        <h4>${data.title}</h4>
+                        <h3><i class="fas fa-bell"></i> ${data.title}</h3>
                         <p>${data.description}</p>
-                        ${data.link ? `<a href="${data.link}" target="_blank">View Link</a>` : ''}
-                        <small>${new Date(data.timestamp.toDate()).toLocaleDateString()}</small>
+                        ${data.link ? `<a href="${data.link}" target="_blank" class="link-btn"><i class="fas fa-external-link-alt"></i> View Document / Link</a>` : ''}
+                        
+                        <div class="notice-meta">
+                            <span class="notice-date"><i class="fas fa-calendar-alt"></i> ${date}</span>
+                            <span class="authority">By Admin (DJPS)</span>
+                        </div>
                     </div>
                 `;
             });
+            container.innerHTML = html;
+        } catch(e) {
+            console.error(e);
+            container.innerHTML = '<div style="text-align:center; color:red; padding:20px;">Unable to load notices. Please check your internet connection.</div>';
         }
-        fetchNotices();
-    </script>
+    }
+
+    loadNotices();
+</script>
+
 </body>
 </html>
