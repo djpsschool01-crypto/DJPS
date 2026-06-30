@@ -447,7 +447,7 @@
 <!-- ADMIN PANEL -->
 <div class="admin-wrapper" id="adminWrapper">
     <div class="admin-nav">
-        <div class="logo">📢 DJPS Admin</div>
+        <div class="logo"> DJPS Admin</div>
         <div class="user-info">
             <span id="userDisplay"></span>
             <button class="logout-btn" onclick="handleLogout()">
@@ -535,7 +535,7 @@
         const errorMsg = document.getElementById('errorMsg');
 
         if (!id || !pass) {
-            showError(errorMsg, '❌ Fill All Fields!');
+            showError(errorMsg, '❌ All Fields Mandatory!');
             return;
         }
 
@@ -601,7 +601,7 @@
         document.getElementById('noticeCount').textContent = window.notices.length;
 
         if (window.notices.length === 0) {
-            list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Koi notice nahi hai abhi!</p></div>';
+            list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No New Updates!</p></div>';
             return;
         }
 
@@ -631,7 +631,7 @@
         const link = document.getElementById('noticeLink').value.trim();
 
         if (!title || !desc) {
-            showError(document.getElementById('successMsg2'), '❌ Title aur Description dono zaroori hain!');
+            showError(document.getElementById('successMsg2'), '❌ Title aur Description Both Are Important!');
             return;
         }
 
