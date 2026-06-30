@@ -535,7 +535,7 @@
         const errorMsg = document.getElementById('errorMsg');
 
         if (!id || !pass) {
-            showError(errorMsg, '❌ Sab fields bharo!');
+            showError(errorMsg, '❌ Fill All Fields!');
             return;
         }
 
@@ -547,13 +547,13 @@
             loadNotices();
             errorMsg.classList.remove('show');
         } else {
-            showError(errorMsg, '❌ ID ya password galat hai!');
+            showError(errorMsg, '❌ Invalid Credentials!');
         }
     };
 
     // LOGOUT HANDLER
     window.handleLogout = function() {
-        if (confirm('Logout kar du?')) {
+        if (confirm('Here You Are Logging Out...Are You Sure?')) {
             window.isLoggedIn = false;
             localStorage.removeItem('djpsLogin');
             localStorage.removeItem('djpsUser');
@@ -672,7 +672,7 @@
 
     // DELETE NOTICE
     window.deleteNotice = async function(noticeId) {
-        if (!confirm('Yeh notice delete kar du?')) return;
+        if (!confirm('Are You Sure ..This Is About To Delete?')) return;
 
         try {
             await deleteDoc(doc(db, "Notices", noticeId));
