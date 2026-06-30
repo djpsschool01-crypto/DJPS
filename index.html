@@ -5,35 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <!-- 1. Google Search & Basic SEO -->
+    
     <title>Divya Jyoti Public School, Chandauli | Best English Medium School</title>
     <meta name="description" content="Welcome to Divya Jyoti Public School in Chandauli. We provide quality education, excellent facilities, and a bright future for your child. Admissions open!">
     <meta name="keywords" content="Divya Jyoti Public School, DJPS Chandauli, Best school in Chandauli, English medium school Chandauli, top school in Chandauli, Divya Jyoti School, cbse school chandauli">
     <meta name="author" content="Divya Jyoti Public School">
 
-    <!-- 2. Mobile Responsiveness (Mobile par site sahi dikhane ke liye) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="H24hYrp853q7e6Z_mQDbc3IU8iKY1EMiyxY0m-nhf5Q" />
-    <!-- 3. Google Bots Instructions (Google ko bolna ki site ko save karo) -->
+    <meta name="google-site-verification" content="H24hYrp853q7e6Z_mQDbc3IU8iKY1EMiyxY0m-nhf5Q" />
+    
     <meta name="robots" content="index, follow">
 
-    <!-- 4. Canonical Link (Google ko batane ke liye ki ye original site hai) -->
     <link rel="canonical" href="https://djps.in/">
 
-    <!-- 5. WhatsApp, Facebook Share Setup (Open Graph) -->
     <meta property="og:title" content="Divya Jyoti Public School, Chandauli">
     <meta property="og:description" content="Welcome to Divya Jyoti Public School. Click here to visit our official website for admissions and updates!">
     <meta property="og:url" content="https://djps.in/">
     <meta property="og:type" content="website">
-    <!-- Niche wali line mein tum apne school ke logo ka link daal sakte ho baad mein -->
     <meta property="og:image" content="https://djps.in/logo.jpg"> 
 
-    <!-- 6. Twitter Share Setup -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Divya Jyoti Public School, Chandauli">
     <meta name="twitter:description" content="Best English Medium School in Chandauli. Admissions Open!">
 
-    <!-- 7. Local SEO / Schema Markup (Bramhastra for Google Search) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -62,11 +56,13 @@
         nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(212,175,55,0.2); z-index: 1000; }
         .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; }
         .logo span { color: var(--neon-gold); font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
-        .menu-btn { font-size: 1.8rem; color: var(--neon-gold); cursor: pointer; background: none; border: none; }
+        .menu-btn { font-size: 1.8rem; color: var(--neon-gold); cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .menu-btn:hover { transform: scale(1.1); }
         
         .sidebar { position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background: #0a0c10; border-left: 2px solid var(--neon-gold); transition: 0.4s ease; z-index: 2000; padding: 40px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
         .sidebar.active { right: 0; }
-        .close-btn { font-size: 2rem; color: #fff; cursor: pointer; float: right; margin-bottom: 30px; }
+        .close-btn { font-size: 2rem; color: #fff; cursor: pointer; float: right; margin-bottom: 30px; transition: 0.3s; }
+        .close-btn:hover { color: var(--neon-gold); transform: rotate(90deg); }
         .sidebar-links { display: flex; flex-direction: column; gap: 15px; clear: both; }
         .sidebar-links a { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); transition: var(--transition); display: flex; align-items: center; gap: 15px; }
         .sidebar-links a:hover { color: var(--neon-gold); border-bottom-color: var(--neon-gold); padding-left: 10px; background: rgba(212,175,55,0.05); }
@@ -82,7 +78,40 @@
         .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 40px; color: #fff; }
         .section-title span { color: var(--neon-gold); }
         
-        /* 6 Campus Cards */
+        /* ================= PRINCIPAL SECTION ================= */
+        .principal-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: rgba(20, 25, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212,175,55,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .principal-img-box {
+            width: 250px; height: 250px; flex-shrink: 0;
+            border-radius: 50%;
+            border: 4px solid var(--neon-gold);
+            padding: 5px;
+            box-shadow: 0 0 25px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .principal-img-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .principal-text h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; margin-bottom: 5px; }
+        .principal-text h4 { color: var(--neon-gold); font-size: 1.2rem; font-weight: 500; margin-bottom: 15px; letter-spacing: 1px; }
+        .principal-text h4 span { font-size: 0.9rem; color: #aaa; font-weight: 300; }
+        .principal-text p { color: #ccc; font-size: 1rem; line-height: 1.8; font-style: italic; }
+        .quote-icon { font-size: 3rem; color: rgba(212,175,55,0.15); margin-bottom: 15px; display: block; }
+
+        @media (max-width: 900px) {
+            .principal-container { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .principal-img-box { width: 200px; height: 200px; }
+            .quote-icon { text-align: center; margin: 0 auto 15px auto; }
+        }
+
+        /* ================= CAMPUS GRID ================= */
         .campus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .campus-card { background: #000; border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; overflow: hidden; height: 280px; position: relative; transition: var(--transition); cursor: pointer; }
         .campus-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.7; }
@@ -102,7 +131,6 @@
         <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- UPDATED SIDEBAR (For all pages) -->
     <div class="sidebar" id="sidebar">
         <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
         <div class="sidebar-links">
@@ -122,6 +150,21 @@
         <p>Igniting Minds, Illuminating Futures in Chandauli.</p>
     </div>
 
+    <section id="principal" style="padding-top: 40px; padding-bottom: 40px;">
+        <div class="principal-container">
+            <div class="principal-img-box">
+                <img src="https://i.postimg.cc/yNnwjfpp/1782803871324.png" 
+                    alt="Mr. Shashwat Pandey">
+            </div>
+            <div class="principal-text">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <h2>Message from the Principal</h2>
+                <h4>Mr. Shashwat Pandey <span>(MBA Graduate)</span></h4>
+                <p>"Education is the most powerful weapon which you can use to change the world. At Divya Jyoti Public School, our vision is to provide a nurturing environment that empowers students to reach their full potential, instilling both academic excellence and core human values to make them true leaders of tomorrow."</p>
+            </div>
+        </div>
+    </section>
+
     <section id="campus">
         <h2 class="section-title">Campus <span>Experience</span></h2>
         <div class="campus-grid">
@@ -139,6 +182,10 @@
     </footer>
 
     <script>
-         
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
