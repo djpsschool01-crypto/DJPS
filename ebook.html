@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERT E-Books | Divya Jyoti Public School</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* BASE THEME */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #050508; color: #ffffff; overflow-x: hidden; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(212,175,55,0.2); z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; }
+        .logo span { color: #D4AF37; font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .menu-btn { font-size: 1.8rem; color: #D4AF37; cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .sidebar { position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background: #0a0c10; border-left: 2px solid #D4AF37; transition: 0.4s ease; z-index: 2000; padding: 40px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .sidebar.active { right: 0; }
+        .close-btn { font-size: 2rem; color: #fff; cursor: pointer; float: right; margin-bottom: 30px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 15px; clear: both; }
+        .sidebar-links a { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+        .sidebar-links a:hover { color: #D4AF37; border-bottom-color: #D4AF37; padding-left: 10px; background: rgba(212,175,55,0.05); }
+        
+        .ebook-container { margin-top: 80px; min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 32px 16px; background-image: linear-gradient(rgba(212,175,55,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.1) 1px, transparent 1px); background-size: 28px 28px; }
+
+        /* CLAUDE'S CSS FOR NCERT (Gold Theme applied over original variables) */
+        .ncert-content {
+            --ink:#ffffff; --paper:transparent; --paper-deep:#0a0c10; --moss:#b58c22; --moss-deep:#D4AF37; --clay:#D4AF37; --line: rgba(212,175,55,0.3);
+            width:100%; max-width:620px; font-family:'Space Grotesk', sans-serif;
+        }
+        .ncert-content .eyebrow{ font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--moss-deep); font-weight:600; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+        .ncert-content .eyebrow::before{ content:""; width:22px;height:2px; background:var(--clay); display:inline-block; }
+        .ncert-content h1{ font-family:'Fraunces', serif; font-weight:600; font-size:clamp(32px, 6vw, 46px); line-height:1.05; margin:0 0 8px; color:#fff; }
+        .ncert-content .sub{ font-size:15px; color:rgba(255,255,255,0.6); margin:0 0 32px; max-width:50ch; }
+        .ncert-content .card{ background:var(--paper-deep); border:1px solid var(--line); border-radius:2px; padding:28px 26px; position:relative; }
+        .ncert-content .card::before{ content:""; position:absolute; top:-1px; left:-1px; width:34px; height:34px; border-top:2px solid var(--clay); border-left:2px solid var(--clay); }
+        .ncert-content .card::after{ content:""; position:absolute; bottom:-1px; right:-1px; width:34px; height:34px; border-bottom:2px solid var(--clay); border-right:2px solid var(--clay); }
+        .ncert-content .field{ margin-bottom:18px; }
+        .ncert-content .field label{ display:block; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--moss-deep); font-weight:600; margin-bottom:7px; }
+        .ncert-content select{ width:100%; appearance:none; -webkit-appearance:none; background:#050508 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="9" viewBox="0 0 14 9"><path d="M1 1L7 7L13 1" stroke="%23D4AF37" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>') no-repeat right 16px center; border:1.5px solid var(--line); border-radius:2px; padding:13px 40px 13px 14px; font-family:'Space Grotesk', sans-serif; font-size:15px; color:var(--ink); cursor:pointer; transition:border-color .15s ease, background-color .15s ease; }
+        .ncert-content select:disabled{ color:#777; cursor:not-allowed; background-color:#0a0c10; }
+        .ncert-content select:not(:disabled):hover{ border-color:var(--moss); }
+        .ncert-content select:focus-visible{ outline:2px solid var(--clay); outline-offset:2px; }
+        .ncert-content .go-row{ display:flex; align-items:center; gap:14px; margin-top:26px; flex-wrap:wrap; }
+        .ncert-content button.go{ background:var(--moss-deep); color:#000; border:none; border-radius:2px; padding:14px 30px; font-family:'Space Grotesk', sans-serif; font-size:15px; font-weight:600; letter-spacing:.02em; cursor:pointer; transition:background-color .15s ease, transform .1s ease; }
+        .ncert-content button.go:hover:not(:disabled){ background:var(--moss); }
+        .ncert-content button.go:active:not(:disabled){ transform:translateY(1px); }
+        .ncert-content button.go:disabled{ background:#333; color:#666; cursor:not-allowed; }
+        .ncert-content .hint{ font-size:13px; color:#888; margin:0; }
+        .ncert-content .hint.err{ color:var(--clay); font-weight:600; }
+        .ncert-content .footnote{ margin-top:22px; font-size:12.5px; color:#6b756c; line-height:1.6; }
+        .ncert-content .footnote b{ color:var(--moss-deep); }
+        .ncert-content .footnote a{ color:var(--moss-deep); }
+        @media (prefers-reduced-motion: reduce){ .ncert-content button.go{ transition:none; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
+        <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
+    <div class="sidebar" id="sidebar">
+        <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
+        <div class="sidebar-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="papers.html"><i class="fa-solid fa-file-lines"></i> CBSE Papers</a>
+            <a href="curricular.html"><i class="fa-solid fa-book-open-reader"></i> CBSE Curricular</a>
+            <a href="ebook.html" style="color: var(--neon-gold);"><i class="fa-solid fa-book"></i> NCERT E-Books</a>
+            <a href="updates.html"><i class="fas fa-bell"></i> New Updates</a>
+        </div>
+    </div>
+
+    <!-- CLAUDE'S EXACT HTML STRUCTURE (Wrapped inside .ebook-container) -->
+    <div class="ebook-container">
+        <div class="ncert-content">
+            <p class="eyebrow">NCERT E-Books · Official Source</p>
+            <h1>Get any NCERT chapter,<br>as a direct PDF.</h1>
+            <p class="sub">Class → Subject → Book → Chapter → Go. Opens the exact chapter PDF straight from ncert.nic.in — no detour.</p>
+            <div class="card">
+                <div class="field">
+                    <label for="classSelect">Class</label>
+                    <select id="classSelect">
+                        <option value="">Select class</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="subjectSelect">Subject</label>
+                    <select id="subjectSelect" disabled>
+                        <option value="">Select class first</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="bookSelect">Book</label>
+                    <select id="bookSelect" disabled>
+                        <option value="">Select subject first</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="chapterSelect">Chapter</label>
+                    <select id="chapterSelect" disabled>
+                        <option value="">Select book first</option>
+                    </select>
+                </div>
+                <div class="go-row">
+                    <button class="go" id="goBtn" disabled>Open PDF →</button>
+                    <p class="hint" id="hintText">Choose class, subject, book and chapter to continue.</p>
+                </div>
+            </div>
+            <p class="footnote">
+                Links are built from NCERT's own file-naming pattern (bookcode + chapter number). If a link ever 404s (rare — usually right after NCERT re-releases a book), try the chapter before/after it, or use <a href="https://ncert.nic.in/textbooks.php?ln=en" target="_blank" rel="noopener">NCERT's own book page</a> as backup.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+
+        // CLAUDE'S EXACT JAVASCRIPT
+        const DATA = {
+          "5": { "Mathematics": [["Math-Magic", "eemh1", 14]], "EVS": [["Looking Around", "eeap1", 22]], "Hindi": [["Rimjhim", "ehhn1", 18]] },
+          "6": { "English": [["Honeysuckle", "fehl1", 10], ["A Pact with the Sun (supplementary)", "fepw1", 10]], "Hindi": [["Vasant", "fhdv1", 17], ["Bal Ram Katha (supplementary)", "fhbr1", 12]], "Mathematics": [["Mathematics", "femh1", 14]], "Science": [["Science", "fesc1", 16]], "Social Science": [["History — Our Pasts I", "fess1", 10], ["Geography", "fess2", 8], ["Civics — Social & Political Life", "fess3", 9]] },
+          "7": { "English": [["Honeycomb", "gehc1", 10], ["An Alien Hand (supplementary)", "geah1", 10]], "Hindi": [["Vasant", "ghvs1", 17], ["Durva (supplementary)", "ghdv1", 18]], "Mathematics": [["Mathematics", "gemh1", 15]], "Science": [["Science", "gesc1", 18]], "Social Science": [["History — Our Pasts II", "gess1", 10], ["Geography", "gess2", 8], ["Civics", "gess3", 9]] },
+          "8": { "English": [["Honeydew", "hehd1", 10], ["It So Happened (supplementary)", "heih1", 10]], "Hindi": [["Vasant", "hhvs1", 18], ["Durva (supplementary)", "hhdv1", 19], ["Bharat Ki Khoj (supplementary)", "hhbk1", 9]], "Mathematics": [["Mathematics", "hemh1", 16]], "Science": [["Science", "hesc1", 18]], "Social Science": [["History — Our Pasts III", "hess2", 10], ["Geography — Resources & Development", "hess4", 6], ["Civics", "hess3", 10]] },
+          "9": { "English": [["Beehive", "iebe1", 11], ["Moments (supplementary)", "iemo1", 10]], "Hindi": [["Kshitiz (prose & poetry)", "ihks1", 17], ["Sparsh (prose & poetry)", "ihsp1", 10], ["Kritika (supplementary)", "ihkr1", 3]], "Mathematics": [["Mathematics", "iemh1", 15]], "Science": [["Science", "iesc1", 15]], "Social Science": [["History — India & the Contemporary World", "iess3", 5], ["Geography — Contemporary India", "iess1", 6], ["Democratic Politics", "iess4", 5], ["Economics", "iess2", 4]] },
+          "10": { "English": [["First Flight", "jeff1", 9], ["Footprints without Feet (supplementary)", "jefp1", 9]], "Hindi": [["Kshitiz (prose & poetry)", "jhks1", 12], ["Sparsh (prose & poetry)", "jhsp1", 14], ["Sanchayan (supplementary)", "jhsy1", 3]], "Mathematics": [["Mathematics", "jemh1", 15]], "Science": [["Science", "jesc1", 16]], "Social Science": [["History", "jess3", 5], ["Geography", "jess1", 7], ["Democratic Politics", "jess4", 5], ["Economics", "jess2", 5]] },
+          "11": { "English": [["Hornbill (prose & poetry)", "kehb1", 14], ["Woven Words (supplementary)", "keww1", 27]], "Hindi": [["Aroh (prose & poetry)", "khar1", 16], ["Vitan (supplementary)", "khvt1", 4]], "Mathematics": [["Mathematics", "kemh1", 14]], "Physics": [["Part I", "keph1", 7], ["Part II", "keph2", 7]], "Chemistry": [["Part I", "kech1", 6], ["Part II", "kech2", 3]], "Biology": [["Biology", "kebo1", 19]], "Accountancy": [["Part I", "keac1", 7], ["Part II", "keac2", 2]], "Business Studies": [["Business Studies", "kebs1", 11]], "Economics": [["Statistics for Economics", "kest1", 8], ["Indian Economic Development", "keec1", 8]], "Psychology": [["Psychology", "kepy1", 8]], "Geography": [["Fundamentals of Physical Geography", "kegy2", 14], ["India: Physical Environment", "kegy1", 6]], "Sociology": [["Introducing Sociology", "kesy1", 5], ["Understanding Society", "kesy2", 5]], "Political Science": [["Political Theory", "keps1", 8], ["Indian Constitution", "keps2", 10]], "History": [["History", "kehs1", 7]], "Computer Science": [["Computer Science", "kecs1", 11]], "Biotechnology": [["Biotechnology", "kebt1", 12]], "Fine Arts": [["Fine Arts", "kefa1", 8]] },
+          "12": { "English": [["Flamingo (prose & poetry)", "lefl1", 13], ["Kaleidoscope (supplementary)", "lekl1", 21]], "Hindi": [["Aroh (prose & poetry)", "lhar1", 15], ["Vitan (supplementary)", "lhvt1", 3]], "Mathematics": [["Part I", "lemh1", 6], ["Part II", "lemh2", 7]], "Physics": [["Part I", "leph1", 8], ["Part II", "leph2", 6]], "Chemistry": [["Part I", "lech1", 5], ["Part II", "lech2", 5]], "Biology": [["Biology", "lebo1", 13]], "Accountancy": [["Part I", "leac1", 4], ["Part II", "leac2", 6]], "Business Studies": [["Part I", "lebs1", 8], ["Part II", "lebs2", 3]], "Economics": [["Economics", "leec1", 6]], "Psychology": [["Psychology", "lepy1", 7]], "Geography": [["Fundamentals of Human Geography", "legy1", 8], ["India: People and Economy", "legy2", 9]], "Sociology": [["Indian Society", "lesy1", 7], ["Social Change and Development", "lesy2", 8]], "Political Science": [["Contemporary World Politics", "leps2", 8]], "History": [["Indian History Part I", "lehs1", 4], ["Themes in Indian History Part II", "lehs2", 4]], "Computer Science": [["Computer Science", "lecs1", 13]], "Fine Arts": [["Fine Arts", "lefa1", 8]] }
+        };
+
+        const classSelect = document.getElementById('classSelect');
+        const subjectSelect = document.getElementById('subjectSelect');
+        const bookSelect = document.getElementById('bookSelect');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const goBtn = document.getElementById('goBtn');
+        const hintText = document.getElementById('hintText');
+
+        Object.keys(DATA).forEach(cls => {
+          const opt = document.createElement('option');
+          opt.value = cls;
+          opt.textContent = "Class " + cls;
+          classSelect.appendChild(opt);
+        });
+
+        function resetSelect(sel, placeholder){
+          sel.innerHTML = '<option value="">' + placeholder + '</option>';
+          sel.disabled = true;
+        }
+
+        classSelect.addEventListener('change', () => {
+          const cls = classSelect.value;
+          resetSelect(bookSelect, "Select subject first");
+          resetSelect(chapterSelect, "Select book first");
+          goBtn.disabled = true;
+          if (!cls) {
+            resetSelect(subjectSelect, "Select class first");
+            hintText.textContent = "Choose class, subject, book and chapter to continue.";
+            hintText.className = "hint";
+            return;
+          }
+          const subjects = Object.keys(DATA[cls]);
+          subjectSelect.innerHTML = '<option value="">Select subject</option>';
+          subjects.forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            subjectSelect.appendChild(opt);
+          });
+          subjectSelect.disabled = false;
+          hintText.textContent = "Now pick the subject.";
+          hintText.className = "hint";
+        });
+
+        subjectSelect.addEventListener('change', () => {
+          const cls = classSelect.value;
+          const subj = subjectSelect.value;
+          resetSelect(chapterSelect, "Select book first");
+          goBtn.disabled = true;
+          if (!subj) {
+            resetSelect(bookSelect, "Select subject first");
+            return;
+          }
+          const books = DATA[cls][subj];
+          bookSelect.innerHTML = '<option value="">Select book</option>';
+          books.forEach(([label, code, max], i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = label;
+            bookSelect.appendChild(opt);
+          });
+          bookSelect.disabled = false;
+          hintText.textContent = "Now pick the book.";
+          hintText.className = "hint";
+        });
+
+        bookSelect.addEventListener('change', () => {
+          const cls = classSelect.value;
+          const subj = subjectSelect.value;
+          const idx = bookSelect.value;
+          goBtn.disabled = true;
+          if (idx === "") {
+            resetSelect(chapterSelect, "Select book first");
+            return;
+          }
+          const [label, code, max] = DATA[cls][subj][idx];
+          chapterSelect.innerHTML = '<option value="">Select chapter</option>';
+          for (let i = 1; i <= max; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = "Chapter " + i;
+            chapterSelect.appendChild(opt);
+          }
+          chapterSelect.disabled = false;
+          hintText.textContent = "Now pick the chapter.";
+          hintText.className = "hint";
+        });
+
+        chapterSelect.addEventListener('change', () => {
+          goBtn.disabled = !chapterSelect.value;
+        });
+
+        goBtn.addEventListener('click', () => {
+          const cls = classSelect.value;
+          const subj = subjectSelect.value;
+          const idx = bookSelect.value;
+          const chap = chapterSelect.value;
+          if (!cls || !subj || idx === "" || !chap) return;
+          const [label, code, max] = DATA[cls][subj][idx];
+          const chapNum = String(chap).padStart(2, '0');
+          const url = "https://ncert.nic.in/textbook/pdf/" + code + chapNum + ".pdf";
+          window.open(url, "_blank", "noopener");
+        });
+    </script>
+</body>
+</html>
