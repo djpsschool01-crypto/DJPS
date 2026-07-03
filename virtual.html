@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Virtual Tour | Divya Jyoti Public School, Chandauli</title>
+    <meta name="description" content="Take a 360-degree virtual tour of Divya Jyoti Public School, Chandauli.">
+    <style>
+        :root { --bg-dark: #050508; --neon-gold: #D4AF37; --transition: all 0.3s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg-dark); color: #fff; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(212,175,55,0.2); z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; }
+        .logo span { color: var(--neon-gold); font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .menu-btn { font-size: 1.8rem; color: var(--neon-gold); cursor: pointer; background: none; border: none; }
+        .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; overflow-y: auto; background: #0a0c10; border-left: 2px solid var(--neon-gold); transition: 0.4s ease; z-index: 2000; padding: 28px 18px; }
+        .sidebar.active { right: 0; }
+        .close-btn { font-size: 1.8rem; color: #fff; cursor: pointer; float: right; margin-bottom: 20px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; clear: both; }
+        .sidebar-links a { color: #fff; text-decoration: none; font-size: 1rem; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 13px; border-radius: 6px; }
+        .sidebar-links a:hover { color: var(--neon-gold); background: rgba(212,175,55,0.05); }
+
+        .page-hero { padding: 140px 5% 50px; text-align: center; }
+        .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); }
+        .page-hero h1 span { color: var(--neon-gold); }
+        .page-hero p { color: #bbb; margin-top: 12px; }
+
+        .tour-wrap { max-width: 1100px; margin: 0 auto 60px; padding: 0 5%; }
+        .tour-box { border: 1px solid rgba(212,175,55,0.3); border-radius: 18px; overflow: hidden; background: #0a0c10; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .tour-box iframe { width: 100%; height: 65vh; min-height: 420px; border: 0; display: block; }
+        .tour-fallback { text-align: center; padding: 24px; color: #ccc; font-size: 0.9rem; }
+        .btn-primary { display: inline-block; margin-top: 14px; padding: 13px 30px; border-radius: 50px; font-weight: 600; text-decoration: none; background: var(--neon-gold); color: #050508; transition: var(--transition); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,175,55,0.5); }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: #888; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
+        <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
+        <div class="sidebar-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-book-open"></i> About Legacy</a>
+            <a href="virtual.html" style="color: var(--neon-gold);"><i class="fa-solid fa-street-view"></i> Virtual Tour</a>
+            <a href="gallery.html"><i class="fas fa-images"></i> Full Gallery</a>
+            <a href="admission.html"><i class="fas fa-user-graduate"></i> Admission Query</a>
+            <a href="contact.html"><i class="fas fa-address-book"></i> Contact Us</a>
+            <hr style="border-color: #333; margin: 8px 0;">
+            <a href="admin-login.html" style="color: #ff4757;"><i class="fas fa-user-shield"></i> Admin Login</a>
+        </div>
+    </div>
+
+    <div class="page-hero">
+        <h1>360° <span>Virtual Campus Tour</span></h1>
+        <p>Walk through our campus from wherever you are.</p>
+    </div>
+
+    <div class="tour-wrap">
+        <div class="tour-box">
+            <iframe src="https://maps.app.goo.gl/LrarCNsByuC95qtb8?g_st=ac" loading="lazy" allowfullscreen title="360 Virtual Tour"></iframe>
+            <div class="tour-fallback">
+                If the tour doesn't load above (some browsers block embedded maps), open it directly:
+                <br>
+                <a class="btn-primary" href="https://maps.app.goo.gl/LrarCNsByuC95qtb8?g_st=ac" target="_blank">Open 360° Tour in Google Maps</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>© 2026 Divya Jyoti Public School.</footer>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
