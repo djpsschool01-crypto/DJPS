@@ -8,21 +8,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Header */
         nav { display: flex; justify-content: space-between; align-items:center; padding: 15px 5%; background: rgba(5,5,8,0.98); border-bottom: 1px solid rgba(212,175,55,0.3); }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight:800; } 
         .logo span { color: #D4AF37; font-size: 0.6rem; display: block; letter-spacing: 3px; }
         .back-btn { color: #D4AF37; text-decoration: none; font-size: 0.9rem; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; }
+        
+        /* Chat Area */
         .chat-container { flex: 1; padding: 20px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: 0 auto; width: 100%; }
+        
         .message { max-width: 80%; padding: 12px 18px; border-radius: 15px; font-size: 0.95rem; line-height: 1.5; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .bot-msg { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; }
         .user-msg { background: linear-gradient(135deg, #D4AF37, #b59223); color: #000; font-weight: 500; align-self: flex-end; border-bottom-right-radius: 2px; }
+        
+        /* Input Area */
         .input-area { padding: 20px 5%; background: rgba(20,25,35,0.9); border-top: 1px solid rgba(212,175,55,0.2); display: flex; gap: 10px; justify-content: center; }
         .input-box { max-width: 800px; width: 100%; display: flex; gap: 10px; }
         input[type="text"] { flex: 1; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; outline: none; font-family: 'Poppins'; font-size: 1rem; }
         input[type="text"]:focus { border-color: #D4AF37; }
         .send-btn { width: 50px; height: 50px; border: none; border-radius: 50%; background: #D4AF37; color: #000; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
         .send-btn:hover { transform: scale(1.1); }
+        
         .loader { display: none; font-size: 0.9rem; color: #D4AF37; align-self: flex-start; margin-left: 10px; }
     </style>
 </head>
@@ -35,7 +44,7 @@
 
     <div class="chat-container" id="chatBox">
         <div class="message bot-msg">
-            Hello! Main DJPS ka smart AI assistant hoon. Aap mujhse kisi bhi subject ka sawal pooch sakte hain, ya Admission/Login pages par jaane ke liye keh sakte hain!
+            Hello! Main DJPS ka smart AI assistant hoon. Aap mujhse koi bhi sawal pooch sakte hain, ya Admission page par jaane ke liye keh sakte hain!
         </div>
     </div>
     
@@ -49,9 +58,10 @@
     </div>
 
     <script>
-        // BHAI, YAHAN KOI API KEY NAHI DAALNI! Key ab Vercel server par safe hai.
-        // Neeche wala URL apne Vercel project ke URL se replace kar de.
-        const PROXY_URL = "https://djps-pt9y.vercel.app/api/chat";
+        // ==========================================
+        // YAHAN APNI GROQ API KEY PASTE KARNA 👇
+        // ==========================================
+        const GROQ_API_KEY = "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"; 
 
         const chatBox = document.getElementById('chatBox');
         const userInput = document.getElementById('userInput');
@@ -68,6 +78,7 @@
             addMessage(text, 'user-msg');
             userInput.value = '';
 
+            // REDIRECT MAGIC
             const lowerText = text.toLowerCase();
             if (lowerText.includes('admission')) {
                 setTimeout(() => {
@@ -76,43 +87,42 @@
                 }, 500);
                 return;
             }
-            if (lowerText.includes('login') || lowerText.includes('admin')) {
-                setTimeout(() => {
-                    addMessage("Redirecting you to the Admin Login page...", 'bot-msg');
-                    setTimeout(() => window.location.href = "admin-login.html", 1000);
-                }, 500);
-                return;
-            }
-            if (lowerText.includes('home')) {
-                setTimeout(() => {
-                    addMessage("Taking you back home...", 'bot-msg');
-                    setTimeout(() => window.location.href = "index.html", 1000);
-                }, 500);
-                return;
-            }
 
             loader.style.display = 'block';
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                const response = await fetch(PROXY_URL, {
+                // Direct API Call to Groq (Llama 3.1)
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: text })
+                    headers: {
+                        'Authorization': `Bearer ${GROQ_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: "llama-3.1-8b-instant", // UPDATE HO GAYA 3.1 PE 🔥
+                        messages: [
+                            { role: "system", content: "You are a helpful AI assistant for Divya Jyoti Public School (DJPS). Keep answers short, smart and friendly." },
+                            { role: "user", content: text }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 500
+                    })
                 });
 
                 const data = await response.json();
                 loader.style.display = 'none';
 
-                if (data.reply) {
-                    addMessage(data.reply, 'bot-msg');
+                if(data.choices && data.choices.length > 0) {
+                    addMessage(data.choices[0].message.content, 'bot-msg');
                 } else {
-                    addMessage("Sorry, network error ya server check karo.", 'bot-msg');
+                    addMessage("Oops! Kuch gadbad ho gayi AI ke dimaag mein.", 'bot-msg');
+                    console.log(data); // Ye F12 console me dikhega agar error aaya
                 }
             } catch (error) {
                 loader.style.display = 'none';
-                addMessage("Server se connect nahi ho paaya. Please try again.", 'bot-msg');
-                console.error(error);
+                addMessage("Internet ya API error. Check F12 Console.", 'bot-msg');
+                console.error("Error:", error);
             }
         }
 
