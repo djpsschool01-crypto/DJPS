@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Divya Jyoti Public School</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: linear-gradient(135deg, rgba(26, 26, 46, 1) 0%, rgba(22, 33, 62, 1) 100%); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #D4AF37; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .school-logo { width: 50px; height: 50px; background: linear-gradient(135deg, #D4AF37 0%, #f0c94a 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #1a1a2e; }
+        .school-info h1 { font-family: 'Playfair Display', serif; font-size: 20px; }
+        .school-info p { font-size: 11px; color: #D4AF37; letter-spacing: 1px; text-transform: uppercase; }
+        .logout-btn { padding: 10px 20px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border: 1px solid #D4AF37; border-radius: 50px; font-size: 14px; transition: 0.3s; cursor: pointer; font-family: 'Poppins', sans-serif; }
+        .logout-btn:hover { background: #D4AF37; color: #1a1a2e; }
+
+        .container { flex: 1; max-width: 900px; margin: 40px auto; padding: 0 5%; width: 100%; }
+        .card { background: white; padding: 28px; border-radius: 12px; border-left: 5px solid #D4AF37; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h2 { font-family: 'Playfair Display', serif; color: #1a1a2e; margin-bottom: 18px; font-size: 20px; }
+
+        .field { margin-bottom: 16px; }
+        .field label { display: block; font-size: 13px; color: #555; margin-bottom: 7px; font-weight: 500; }
+        .field input, .field textarea { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; resize: vertical; }
+        .field input:focus, .field textarea:focus { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); background: #fff; }
+
+        .post-btn { padding: 12px 28px; border: none; border-radius: 50px; background: linear-gradient(135deg, #D4AF37 0%, #f0c94a 100%); color: #1a1a2e; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .post-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.35); }
+        .post-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .status-msg { margin-top: 14px; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+        .status-msg.success { background: #e9f9ef; color: #1e8449; }
+        .status-msg.error { background: #fdecea; color: #c0392b; }
+
+        .notice-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .notice-row:last-child { border-bottom: none; }
+        .notice-row h4 { font-size: 15px; color: #1a1a2e; margin-bottom: 5px; }
+        .notice-row p { font-size: 13px; color: #666; }
+        .delete-btn { background: none; border: 1px solid #e0a0a0; color: #c0392b; border-radius: 8px; padding: 7px 12px; font-size: 12px; cursor: pointer; transition: 0.3s; white-space: nowrap; }
+        .delete-btn:hover { background: #fdecea; }
+
+        .loader { text-align: center; padding: 20px; color: #D4AF37; }
+        .empty { text-align: center; padding: 20px; color: #999; font-size: 13px; }
+
+        footer { background: #16213e; color: white; text-align: center; padding: 20px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-section">
+        <div class="school-logo"><i class="fas fa-book-reader"></i></div>
+        <div class="school-info">
+            <h1>DIVYA JYOTI</h1>
+            <p id="adminBadge">Admin Panel</p>
+        </div>
+    </div>
+    <button class="logout-btn" id="logoutBtn"><i class="fas fa-right-from-bracket"></i> Logout</button>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2><i class="fas fa-bell" style="color:#D4AF37;"></i> Post a New Notice</h2>
+        <form id="noticeForm">
+            <div class="field">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="e.g. Annual Sports Day - Registration Open" required>
+            </div>
+            <div class="field">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3" placeholder="Short details about this notice" required></textarea>
+            </div>
+            <div class="field">
+                <label for="link">Link (optional)</label>
+                <input type="url" id="link" placeholder="https://... (PDF, form, or page link)">
+            </div>
+            <button type="submit" class="post-btn" id="postBtn"><i class="fas fa-paper-plane"></i> Post Notice</button>
+            <div class="status-msg success" id="successMsg"><i class="fas fa-circle-check"></i> Notice posted successfully.</div>
+            <div class="status-msg error" id="errorMsg"><i class="fas fa-circle-exclamation"></i> Something went wrong. Please try again.</div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-list" style="color:#D4AF37;"></i> Existing Notices</h2>
+        <div id="noticesList">
+            <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading notices...</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Divya Jyoti Public School | Admin Panel</p>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, deleteDoc, doc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWixU7YycVXE7T6mo51Ym6OO_yMfZ8SM0",
+        authDomain: "djps-website-3a826.firebaseapp.com",
+        projectId: "djps-website-3a826"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Guard: only signed-in admins can see this page
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "admin-login.html";
+        } else {
+            document.getElementById('adminBadge').textContent = user.email.split('@')[0];
+            loadNotices();
+        }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = "admin-login.html";
+    });
+
+    const noticesCol = collection(db, "Notices");
+
+    async function loadNotices() {
+        const listEl = document.getElementById('noticesList');
+        listEl.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading notices...</div>';
+        try {
+            const q = query(noticesCol, orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+            if (snapshot.empty) {
+                listEl.innerHTML = '<div class="empty">No notices posted yet.</div>';
+                return;
+            }
+            listEl.innerHTML = '';
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const row = document.createElement('div');
+                row.className = 'notice-row';
+                row.innerHTML = `
+                    <div>
+                        <h4>${escapeHtml(data.title || '')}</h4>
+                        <p>${escapeHtml(data.description || '')}</p>
+                    </div>
+                    <button class="delete-btn" data-id="${docSnap.id}"><i class="fas fa-trash"></i> Delete</button>
+                `;
+                listEl.appendChild(row);
+            });
+
+            listEl.querySelectorAll('.delete-btn').forEach((btn) => {
+                btn.addEventListener('click', async () => {
+                    if (!confirm('Delete this notice?')) return;
+                    await deleteDoc(doc(db, "Notices", btn.dataset.id));
+                    loadNotices();
+                });
+            });
+        } catch (e) {
+            console.error(e);
+            listEl.innerHTML = '<div class="empty">Unable to load notices.</div>';
+        }
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // Post new notice
+    const form = document.getElementById('noticeForm');
+    const postBtn = document.getElementById('postBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+        postBtn.disabled = true;
+        postBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+
+        try {
+            await addDoc(noticesCol, {
+                title: document.getElementById('title').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                link: document.getElementById('link').value.trim() || null,
+                timestamp: serverTimestamp()
+            });
+            successMsg.style.display = 'block';
+            form.reset();
+            loadNotices();
+        } catch (e) {
+            console.error(e);
+            errorMsg.style.display = 'block';
+        } finally {
+            postBtn.disabled = false;
+            postBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Post Notice';
+        }
+    });
+</script>
+
+</body>
+</html>
