@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FABLE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #050508; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Header */
+        nav { display: flex; justify-content: space-between; align-items:center; padding: 15px 5%; background: rgba(5,5,8,0.98); border-bottom: 1px solid rgba(212,175,55,0.3); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight:800; } 
+        .logo span { color: #D4AF37; font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .back-btn { color: #D4AF37; text-decoration: none; font-size: 0.9rem; border: 1px solid #D4AF37; padding: 8px 15px; border-radius: 20px; }
+        
+        /* Chat Area */
+        .chat-container { flex: 1; padding: 20px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: 0 auto; width: 100%; }
+        
+        .message { max-width: 80%; padding: 12px 18px; border-radius: 15px; font-size: 0.95rem; line-height: 1.5; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .bot-msg { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-msg { background: linear-gradient(135deg, #D4AF37, #b59223); color: #000; font-weight: 500; align-self: flex-end; border-bottom-right-radius: 2px; }
+        
+        /* Input Area */
+        .input-area { padding: 20px 5%; background: rgba(20,25,35,0.9); border-top: 1px solid rgba(212,175,55,0.2); display: flex; gap: 10px; justify-content: center; }
+        .input-box { max-width: 800px; width: 100%; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; color: #fff; outline: none; font-family: 'Poppins'; font-size: 1rem; }
+        input[type="text"]:focus { border-color: #D4AF37; }
+        .send-btn { width: 50px; height: 50px; border: none; border-radius: 50%; background: #D4AF37; color: #000; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .send-btn:hover { transform: scale(1.1); }
+        
+        .loader { display: none; font-size: 0.9rem; color: #D4AF37; align-self: flex-start; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">DJPS <span>AI Assistant</span></div>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+    </nav>
+
+    <div class="chat-container" id="chatBox">
+        <div class="message bot-msg">
+            Hello! Main DJPS ka smart AI assistant hoon. Aap mujhse kisi bhi subject ka sawal pooch sakte hain, ya Admission/Login pages par jaane ke liye keh sakte hain!
+        </div>
+    </div>
+    
+    <div class="loader" id="typingLoader"><i class="fas fa-circle-notch fa-spin"></i> DJPS AI is thinking...</div>
+
+    <div class="input-area">
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Ask anything or type 'Admission'..." autocomplete="off">
+            <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // BHAI, YAHAN APNI GROQ API KEY DAALNI HAI 👇
+        // ==========================================
+        const GROQ_API_KEY = "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"; 
+
+        const chatBox = document.getElementById('chatBox');
+        const userInput = document.getElementById('userInput');
+        const loader = document.getElementById('typingLoader');
+
+        // Enter dabane par bhi message send ho
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") { sendMessage(); }
+        });
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // 1. User ka message screen par dikhao
+            addMessage(text, 'user-msg');
+            userInput.value = '';
+
+            // 2. REDIRECT MAGIC (Agar words match karein toh sidha bhej do)
+            const lowerText = text.toLowerCase();
+            if (lowerText.includes('admission')) {
+                setTimeout(() => {
+                    addMessage("Redirecting you to the Admission page...", 'bot-msg');
+                    setTimeout(() => window.location.href = "admission.html", 1000);
+                }, 500);
+                return;
+            }
+            if (lowerText.includes('login') || lowerText.includes('admin')) {
+                setTimeout(() => {
+                    addMessage("Redirecting you to the Admin Login page...", 'bot-msg');
+                    setTimeout(() => window.location.href = "admin-login.html", 1000);
+                }, 500);
+                return;
+            }
+            if (lowerText.includes('home')) {
+                setTimeout(() => {
+                    addMessage("Taking you back home...", 'bot-msg');
+                    setTimeout(() => window.location.href = "index.html", 1000);
+                }, 500);
+                return;
+            }
+
+            // 3. Agar redirect nahi hua, toh GROQ AI se answer mango
+            loader.style.display = 'block';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${GROQ_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: "llama3-8b-8192", // Groq ka superfast model
+                        messages: [
+                            { role: "system", "content": "You are a helpful, respectful, and smart AI assistant for Divya Jyoti Public School (DJPS). Answer student's general knowledge questions accurately in short and crisp paragraphs." },
+                            { role: "user", "content": text }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 500
+                    })
+                });
+
+                const data = await response.json();
+                loader.style.display = 'none';
+
+                if(data.choices && data.choices.length > 0) {
+                    addMessage(data.choices[0].message.content, 'bot-msg');
+                } else {
+                    addMessage("Sorry, network error ya API Key check karo.", 'bot-msg');
+                }
+            } catch (error) {
+                loader.style.display = 'none';
+                addMessage("Groq server connect nahi ho paaya. Please try again.", 'bot-msg');
+                console.error(error);
+            }
+        }
+
+        function addMessage(text, className) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${className}`;
+            msgDiv.innerText = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
