@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Official | Divya Jyoti Public School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg-dark: #050508; --neon-gold: #D4AF37; --text-main: #ffffff; --card: #0a0c10; --line: rgba(212, 175, 55, 0.22); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--line); z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; }
+        .logo span { color: var(--neon-gold); font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .menu-btn { font-size: 1.8rem; color: var(--neon-gold); cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .sidebar { position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background: var(--card); border-left: 2px solid var(--neon-gold); transition: 0.4s ease; z-index: 2000; padding: 40px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+        .sidebar.active { right: 0; }
+        .close-btn { font-size: 2rem; color: #fff; cursor: pointer; float: right; margin-bottom: 30px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 15px; clear: both; }
+        .sidebar-links a { color: #fff; text-decoration: none; font-size: 1.1rem; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+        .sidebar-links a:hover { color: var(--neon-gold); border-bottom-color: var(--neon-gold); padding-left: 10px; background: rgba(212,175,55,0.05); }
+        .page-content { margin-top: 150px; padding: 20px 5%; max-width: 680px; margin-left: auto; margin-right: auto; text-align: center; }
+        .portal-card { display: flex; flex-direction: column; align-items: center; padding: 40px 20px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+        .portal-icon { font-size: 50px; color: var(--neon-gold); margin-bottom: 20px; }
+        .portal-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; }
+        .portal-card p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 30px; }
+        .go-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--neon-gold); color: #000; text-decoration: none; padding: 14px 30px; font-weight: 600; border-radius: 8px; transition: 0.3s; }
+        .go-btn:hover { box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">DIVYA JYOTI <span>Public School</span></div>
+        <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
+        <div class="sidebar-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="papers.html"><i class="fa-solid fa-file-lines"></i> CBSE Papers</a>
+            <a href="curricular.html"><i class="fa-solid fa-book-open-reader"></i> CBSE Curricular</a>
+            <a href="ebook.html"><i class="fa-solid fa-book"></i> NCERT E-Books</a>
+            <a href="digilocker.html"><i class="fa-solid fa-cloud-arrow-down"></i> DigiLocker</a>
+            <a href="pariksha.html"><i class="fa-solid fa-laptop-file"></i> Pariksha Sangam</a>
+            <a href="cbse.html" style="color: var(--neon-gold);"><i class="fa-solid fa-globe"></i> CBSE Official</a>
+            <a href="updates.html"><i class="fas fa-bell"></i> New Updates</a>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="portal-card">
+            <div class="portal-icon"><i class="fa-solid fa-globe"></i></div>
+            <h2>CBSE Official Website</h2>
+            <p>Visit the Central Board of Secondary Education's main website for latest circulars, notices, and updates.</p>
+            <a href="https://www.cbse.gov.in/cbsenew/cbse.html" target="_blank" class="go-btn">Open CBSE Website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    </script>
+</body>
+</html>
