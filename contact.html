@@ -27,6 +27,18 @@
         
         .map-btn { display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #e8c454, #b59223); color: #000; font-weight: bold; text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; }
         .map-btn:hover { box-shadow: 0 10px 20px rgba(212,175,55,0.4); transform: translateY(-3px); }
+            html, body {
+        min-height: 100vh;
+        min-height: 100dvh; /* Naye mobiles (iPhone/Android) ke bottom gap ko theek karta hai */
+        background-color: #050508; /* Tera jo dark background color hai, usko poori screen pe lock kar dega */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Isse tera page hamesha full screen lega aur ajeeb sa kata hua nahi dikhega */
+        
     </style>
 </head>
 <body>
