@@ -186,10 +186,30 @@
                     },
                     body: JSON.stringify({
                         model: "llama-3.1-8b-instant", // UPDATE HO GAYA 3.1 PE 🔥
-                        messages: [
-                            { role: "system", content: "You are a helpful AI assistant for Divya Jyoti Public School (DJPS). Keep answers short, smart and friendly." },
+                        messages:
+                            { 
+                                role: "system", 
+                                content: `You are the official AI Assistant of Divya Jyoti Public School (DJPS). You are integrated into the official website djps.in.
+                                
+NEVER say you don't have real-time info or that DJPS doesn't have a website. You know everything about DJPS.
+
+Here is the DJPS Knowledge Base:
+- School Name: Divya Jyoti Public School (DJPS)
+- Website: djps.in
+- Director's / Contact Number: +91 99354 56145
+- Email: shashwat82@gmail.com
+- Campus Address: FQ57+CGG, Kolhuwa, Beldand Road, Chandauli, UP 274001
+- Admission: Admissions are currently open. Users can visit the 'Admission' page to apply.
+
+Rules for answering:
+1. If asked about the Director's number or contact, provide +91 9935456145 immediately.
+2. If the user greets in Hindi (like "Jai Shree Ram" or "Namaste"), reply respectfully in the same tone.
+3. Keep answers concise, helpful, and very friendly. Use Hindi/Hinglish if the user asks in Hindi.` 
+                            },
                             { role: "user", content: text }
                         ],
+
+                            
                         temperature: 0.7,
                         max_tokens: 500
                     })
