@@ -53,7 +53,10 @@
         .ambient-light { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: drift 20s infinite alternate linear; }
         .light-1 { width: 50vw; height: 50vw; background: #3a2e05; top: -10%; left: -10%; }
         @keyframes drift { from { transform: translate(0,0); } to { transform: translate(10%, 10%); } }
-
+        
+        .share-btn { font-size: 1.5rem; color: #fff; cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .share-btn:hover { color: var(--neon-gold); transform: scale(1.1); }
+        
         nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(212,175,55,0.2); z-index: 1000; }
         .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; }
         .logo span { color: var(--neon-gold); font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
@@ -212,12 +215,13 @@
             <img src="https://i.ibb.co/Z6NMM15n/IMG-20260701-WA0017.jpg" alt="Welcome to Divya Jyoti Public School" onerror="this.closest('.popup-overlay').style.display='none'">
         </div>
     </div>
-
     <nav>
         <div class="logo">DIVYA JYOTI <span>Public School</span></div>
-        <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div style="display: flex; align-items: center; gap: 18px;">
+            <button class="share-btn" onclick="shareWebsite()" title="Share Website"><i class="fas fa-share-nodes"></i></button>
+            <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        </div>
     </nav>
-
     <div class="sidebar" id="sidebar">
         <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>
         <div class="sidebar-links">
@@ -430,6 +434,20 @@
                 }, 2000);
             }
         });
+                // Website Share Function
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Divya Jyoti Public School',
+                    text: 'Welcome to Divya Jyoti Public School, Chandauli. Best English Medium School. Admissions Open!',
+                    url: 'https://djps.in/'
+                }).catch(err => console.log('Share failed:', err));
+            } else {
+                navigator.clipboard.writeText('https://djps.in/');
+                alert('Website link copied to clipboard!');
+            }
+        }
+        
         </script>
 <!-- ===== Floating Robot Chat Button ===== -->
 <style>
