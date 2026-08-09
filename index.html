@@ -59,13 +59,14 @@
         .logo span { color: var(--neon-gold); font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
         .menu-btn { font-size: 1.8rem; color: var(--neon-gold); cursor: pointer; background: none; border: none; transition: 0.3s; }
         .menu-btn:hover { transform: scale(1.1); }
-/* ===== Awards Sliding Section (Gaming/VVIP Style) ===== */
+        /* ===== Awards Sliding Section (Gaming/VVIP Style) ===== */
 .awards-slider-container {
     width: 90%;
     max-width: 800px;
-    margin: 40px auto;
+    margin: -20px auto 40px auto; /* Thoda upar khiska diya */
     overflow: hidden;
     position: relative;
+    z-index: 20;
     border-radius: 16px;
     border: 1px solid rgba(212, 175, 55, 0.3);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.2);
@@ -86,22 +87,34 @@
 
 .awards-slide img {
     width: 100%;
-    height: 350px; /* Slider ki height */
+    height: 350px; 
     object-fit: cover;
     display: block;
 }
 
 @keyframes slideAwards {
-    0%, 25% { transform: translateX(0%); }      /* Slide 1 */
-    33%, 58% { transform: translateX(-33.33%); } /* Slide 2 */
-    66%, 91% { transform: translateX(-66.66%); } /* Slide 3 */
-    100% { transform: translateX(0%); }         /* Back to 1 */
+    0%, 25% { transform: translateX(0%); }      
+    33%, 58% { transform: translateX(-33.33%); } 
+    66%, 91% { transform: translateX(-66.66%); } 
+    100% { transform: translateX(0%); }         
 }
 
+/* 🔥 Mobile Gap Fix 🔥 */
 @media (max-width: 768px) {
-    .awards-slide img { height: 220px; }
+    .hero { 
+        height: auto !important; 
+        min-height: auto !important; 
+        padding: 130px 5% 30px !important; /* Ye fixed height hata dega */
+    }
+    .awards-slider-container { 
+        margin-top: 10px !important; /* Ye slider ko button ke theek niche le aayega */
+        width: 92%; 
+    }
+    .awards-slide img { 
+        height: 220px; 
+    }
 }
-        
+      
         /* ===== Sidebar (compact + scrollable) ===== */
         .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; max-height: 100vh; overflow-y: auto; background: #0a0c10; border-left: 2px solid var(--neon-gold); transition: 0.4s ease; z-index: 2000; padding: 28px 18px; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
         .sidebar.active { right: 0; }
