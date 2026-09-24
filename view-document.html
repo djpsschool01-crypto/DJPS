@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Document | Divya Jyoti Public School, Chandauli</title>
+    <meta name="robots" content="noindex, follow">
+    <style>
+        :root { --bg-dark: #050508; --neon-gold: #D4AF37; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg-dark); color: #fff; min-height: 100vh; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(5,5,8,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(212,175,55,0.2); z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.6rem); color: #fff; font-weight: 800; text-decoration: none; }
+        .logo span { color: var(--neon-gold); font-family: 'Poppins', sans-serif; font-size: 0.6rem; display: block; letter-spacing: 3px; }
+        .back { color: var(--neon-gold); text-decoration: none; font-size: 0.85rem; border: 1px solid var(--neon-gold); padding: 8px 16px; border-radius: 50px; white-space: nowrap; }
+        .back:hover { background: var(--neon-gold); color: #050508; }
+        main { max-width: 1000px; margin: 0 auto; padding: 120px 5% 50px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: 18px; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 50px; border: 1px solid var(--neon-gold); color: var(--neon-gold); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .btn.primary { background: var(--neon-gold); color: #050508; }
+        .btn:hover { opacity: 0.85; }
+        .state { text-align: center; color: #aaa; padding: 40px 10px; }
+        .viewer object, .viewer img { width: 100%; border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; background: #fff; }
+        .viewer object { height: 80vh; }
+        .viewer img { height: auto; }
+        .fallback { padding: 30px 16px; text-align: center; color: #aaa; background: #0a0c10; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">DIVYA JYOTI <span>Public School</span></a>
+        <a href="mandatory-disclosure.html" class="back"><i class="fas fa-arrow-left"></i> All Documents</a>
+    </nav>
+    <main>
+        <h1 id="docTitle">Loading document...</h1>
+        <div class="actions hidden" id="actions" style="display:none">
+            <a class="btn primary" id="openBtn" href="#" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open</a>
+            <a class="btn" id="dlBtn" href="#" download><i class="fas fa-download"></i> Download</a>
+        </div>
+        <div class="state" id="status"><i class="fas fa-spinner fa-spin"></i> Please wait...</div>
+        <div class="viewer" id="viewer"></div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyBmFWO5Afxul-toUvjHIbqA9CV6RQ8ONCQ",
+            authDomain: "djpschool.firebaseapp.com",
+            projectId: "djpschool",
+            storageBucket: "djpschool.firebasestorage.app",
+            messagingSenderId: "775315245351",
+            appId: "1:775315245351:web:0fa0a27d7bf3beec660102"
+        });
+        const db = getFirestore(app);
+
+        const titleEl = document.getElementById('docTitle');
+        const statusEl = document.getElementById('status');
+        const viewerEl = document.getElementById('viewer');
+
+        function b64ToBytes(b64) {
+            const bin = atob(b64);
+            const arr = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+            return arr;
+        }
+
+        function fail(msg) {
+            titleEl.textContent = 'Document not available';
+            statusEl.innerHTML = msg;
+        }
+
+        try {
+            const id = new URLSearchParams(location.search).get('id');
+            if (!id) { fail('No document selected.'); throw new Error('no-id'); }
+
+            const mainSnap = await getDoc(doc(db, "MandatoryDisclosure", id));
+            if (!mainSnap.exists()) { fail('This document was not found. It may have been removed.'); throw new Error('not-found'); }
+
+            const { title, fileName, mimeType, chunks } = mainSnap.data();
+            const parts = await Promise.all(Array.from({ length: chunks }, async (_, i) => {
+                const s = await getDoc(doc(db, "MandatoryDisclosure", id, "chunks", String(i).padStart(4, '0')));
+                if (!s.exists()) throw new Error('missing-chunk-' + i);
+                return b64ToBytes(s.data().data);
+            }));
+
+            const type = mimeType || 'application/pdf';
+            const url = URL.createObjectURL(new Blob(parts, { type }));
+
+            titleEl.textContent = title || 'Document';
+            document.title = (title || 'Document') + ' | Divya Jyoti Public School';
+            document.getElementById('openBtn').href = url;
+            const dl = document.getElementById('dlBtn');
+            dl.href = url;
+            dl.download = fileName || 'document';
+            document.getElementById('actions').style.display = 'flex';
+            statusEl.style.display = 'none';
+
+            if (type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = title || 'Document';
+                viewerEl.appendChild(img);
+            } else {
+                viewerEl.innerHTML = '<object data="' + url + '" type="' + type + '"><div class="fallback">Preview is not supported on this device. Please use Open or Download above.</div></object>';
+            }
+        } catch (err) {
+            console.error(err);
+            if (statusEl.style.display !== 'none' && statusEl.textContent.indexOf('Please wait') !== -1) {
+                fail('Unable to load this document. Please try again later.');
+            }
+        }
+    </script>
+</body>
+</html>
